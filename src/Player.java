@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 
 public class Player {
 
-	int x = 0;
-	int y = 0;
+	int x = 450;
+	int y = 45;
 	float angle = 0;
 
 	BufferedImage image = null;

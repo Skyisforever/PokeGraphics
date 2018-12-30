@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 public class Screen extends JPanel implements Runnable {
 	Thread thread = new Thread(this);
 	Room room = null;
+	MouseHandle ms = new MouseHandle();
 
 	boolean defined = false;
 
@@ -15,10 +16,13 @@ public class Screen extends JPanel implements Runnable {
 
 	public void define() {
 		room = new Room();
+		addMouseListener(ms);
 		defined = true;
 	}
 
 	public void paintComponent(Graphics g) {
+		if (!defined)
+			return;
 		g.setColor(new Color(245,245,245));
 		g.fillRect(0,  0,  800,  600);
 		

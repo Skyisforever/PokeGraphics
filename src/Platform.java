@@ -1,26 +1,26 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Background {
-	BufferedImage image = null;
+public class Platform {
+	BufferedImage img = null;
 
-	public Background() {
+	public Platform() {
 		define();
 	}
 
 	public void define() {
 		try {
-			image = ImageIO.read(new File("background.png"));
-			image=null;
-		} catch (Exception e) {
+			img = ImageIO.read(new File("platform.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void draw(Graphics g) {
-		g.drawImage(image, 0, 0, null);
+		g.drawImage(img,  425, 150, null);
 	}
 }
