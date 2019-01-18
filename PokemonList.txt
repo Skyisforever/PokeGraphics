@@ -1,5 +1,0 @@
-Pikachu,electric,36,13,6,10,Thunder,electric,none,14,QuickAttack,normal,none,10,ElectroBall,electric,paralysis,14,Nuzzle,electric,paralysis,13
-Bulbasaur,grass,poison,43,10,12,2,Tackle,normal,none,11,VineWhip,grass,none,13,VenoShock,poison,poison,10,LeechSeed,grass,drain,10
-JigglyPuff,fairy,normal,31,11,7,8,Sleep,normal,sleep,0,Pound,normal,none,14,WakeupSlap,fighting,wakeup,11,GyroBall,steel,none,12
-Greninja,dark,water,28,10,7,15,IceBeam,ice,freeze,11,HydroPump,water,none,14,Lick,ghost,paralysis,9,NightSlash,dark,none,13
-PsyDuck,psychic,water,32,11,15,5,Scratch,normal,none,9,Confusion,psychic,confuse,8,PsyShock,psychic,none,11,BrickBreak,fighting,none,18
