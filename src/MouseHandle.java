@@ -1,46 +1,49 @@
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MouseHandle implements MouseListener {
+public class MouseHandle implements MouseListener
+{
+	private int x, y;
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		// System.out.printf("X: %d Y: %d\n", arg0.getX(), arg0.getY());
-		Hud.clicked = true;
-		Hud.setCoord(arg0.getX(), arg0.getY());
+	public void mousePressed(MouseEvent arg0)
+	{
+
+		Hud.tw.end();
+
+		x = arg0.getX();
+		y = arg0.getY();
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent arg0)
+	{
+		int x1, y1;
+		x1 = arg0.getX();
+		y1 = arg0.getY();
 
-	}
+		int x2 = (x + x1) / 2;
+		int y2 = (y + y1) / 2;
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		// REMINDER:
-		// Must control if options available
-		if (Hud.tw.isTyping()) {
-			// System.out.println("Loading next.");
-		}
-
-		else {
-			Hud.tw.end();
+		if (Math.abs(x - x1) <= 50 && Math.abs(y - y1) <= 25) {
+			Hud.clicked = true;
+			Hud.setCoord(x2, y2);
+		//	System.out.printf("X: %d Y: %d\n", x2, y2);
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent arg0)
+	{
+	}
 
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
 	}
 }
