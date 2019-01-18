@@ -115,7 +115,7 @@ public class Hud {
 	}
 
 	public void run() {
-		if ((mouseX >= 437 && mouseX <= 532) && (mouseY >= 429 && mouseY <= 456)) {
+		if ((mouseX >= 433 && mouseX <= 532) && (mouseY >= 428 && mouseY <= 460)) {
 			setMode("choices");
 		}
 
