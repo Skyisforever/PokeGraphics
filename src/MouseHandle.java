@@ -8,7 +8,7 @@ public class MouseHandle implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		//System.out.printf("X: %d  Y: %d\n", arg0.getX(), arg0.getY());
+		System.out.printf("X: %d  Y: %d\n", arg0.getX(), arg0.getY());
 		Hud.clicked = true;
 		Hud.setCoord(arg0.getX(), arg0.getY());
 	}

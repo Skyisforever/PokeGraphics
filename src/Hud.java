@@ -35,7 +35,7 @@ public class Hud {
 		}
 		else if (mode.equals("run")) {
 			System.out.println("You have nowhere to run!");
-			tw.set("You have nowhere to run!");
+			tw.set("You have nowhere to run!          Return");
 			tw.next();
 			
 		}
@@ -51,7 +51,7 @@ public class Hud {
 			case "choices":
 				if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
 					System.out.println("attack");
-					setMode("run");
+					setMode("attack");
 					
 				}
 				else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
@@ -68,6 +68,11 @@ public class Hud {
 					setMode("run");	
 					
 				}
+			case "run":
+			 if((mouseX>=437 && mouseX<=532) && (mouseY>=429 && mouseY<=456)) {
+				 setMode("choices");
+			 }
+				
 			}
 			clicked = false;
 		}
