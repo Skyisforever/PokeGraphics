@@ -34,9 +34,10 @@ public class Hud {
 			tw.next();
 		}
 		else if (mode.equals("run")) {
+			System.out.println("You have nowhere to run!");
 			tw.set("You have nowhere to run!");
-			mode.equals("choices");
 			tw.next();
+			
 		}
 	}
 
@@ -49,19 +50,22 @@ public class Hud {
 			switch (mode) {
 			case "choices":
 				if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
-					mode.equals("attack");
 					System.out.println("attack");
+					setMode("run");
+					
 				}
 				else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
-					mode.equals("bag");
 					System.out.println("bag");
+					setMode("bag");
+					
 				}
 				else if((mouseX>=34 && mouseX<=131) && (mouseY>=482 && mouseY<=511)) {
-					mode.equals("pokemon");
 					System.out.println("pokemon");
+					setMode("pokemon");
+					
 				}
 				else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-					mode.equals("run");
+					setMode("run");	
 					
 				}
 			}
@@ -86,7 +90,7 @@ public class Hud {
 	}
 	public void bag() {
 		if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
-			//player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
+			
 		}
 		else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
 			
