@@ -21,7 +21,7 @@ public class Player {
 		this.items = items;
 	}
 
-	public void GeneratePokemon(ArrayList<Pokemon> input) throws FileNotFoundException {
+	public void GeneratePokemon(ArrayList<Pokemon> input) {
 		ArrayList<Pokemon> listofpokemon = new ArrayList<Pokemon>();
 		java.net.URL url = getClass().getResource("/PokemonList.txt");
 		BufferedReader in = null;

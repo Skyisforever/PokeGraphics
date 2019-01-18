@@ -18,6 +18,12 @@ public class Room {
 	}
 
 	public void define() {
+		player.pokemons=new ArrayList<Pokemon>();
+		player.GeneratePokemon(player.pokemons);
+		player.currentpokemon=player.pokemons.get(0);
+		opponent.pokemons=new ArrayList<Pokemon>();
+		opponent.GeneratePokemon(opponent.pokemons);
+		opponent.currentpokemon=opponent.pokemons.get(0);
 		 ArrayList<Item> items=new ArrayList<Item>();
 		items.add(new Item("cureall", 1));
 		items.add(new Item("healingpotion", 1));

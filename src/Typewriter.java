@@ -1,4 +1,3 @@
-
 public class Typewriter implements Runnable {
 	private int x = 0;
 	private String text;

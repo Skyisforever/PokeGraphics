@@ -35,6 +35,18 @@ public class Hud {
 			tw.set("You have nowhere to run!          Return");
 			tw.next();
 			break;
+		case "attack":
+			tw.set(Room.player.currentpokemon.skills.get(0)+"         "+Room.player.currentpokemon.skills.get(1)+"\n\n"+Room.player.currentpokemon.skills.get(2)+"        "+Room.player.currentpokemon.skills.get(3));
+			tw.next();
+			break;
+		case "bag":
+			tw.set("You have nowhere to run!          Return");
+			tw.next();
+			break;
+		case "pokemon":
+			tw.set("You have nowhere to run!          Return");
+			tw.next();
+			break;
 		}
 	}
 
@@ -51,6 +63,10 @@ public class Hud {
 			case "run":
 				run();
 				break;
+			case "attack":
+				attack();
+				break;
+			
 			}
 			clicked = false;
 		}
@@ -77,7 +93,7 @@ public class Hud {
 
 	public void attack() {
 		if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
-			// player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
+			setMode("choices");
 		} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
 
 		} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
