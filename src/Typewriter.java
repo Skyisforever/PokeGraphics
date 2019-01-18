@@ -20,9 +20,9 @@ public class Typewriter implements Runnable {
 			while (true) {
 				if (x < text.length()) {
 					++x;
-					isTyping = false;
-				} else {
 					isTyping = true;
+				} else {
+					isTyping = false;
 				}
 				Hud.text = text.substring(0, x);
 				try {
