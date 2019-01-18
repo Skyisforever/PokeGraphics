@@ -4,15 +4,23 @@ import java.awt.event.MouseListener;
 public class MouseHandle implements MouseListener
 {
 	private int x, y;
+	private boolean clickable = false;
 
 	@Override
 	public void mousePressed(MouseEvent arg0)
 	{
-
-		Hud.tw.end();
+		System.out.println(Hud.tw.isTyping());
+		if (Hud.tw.isTyping()) {
+			Hud.tw.end();
+			clickable = false;
+			return;
+		}
+		
+		clickable = true;
 
 		x = arg0.getX();
 		y = arg0.getY();
+		
 	}
 
 	@Override
@@ -25,7 +33,8 @@ public class MouseHandle implements MouseListener
 		int x2 = (x + x1) / 2;
 		int y2 = (y + y1) / 2;
 
-		if (Math.abs(x - x1) <= 50 && Math.abs(y - y1) <= 25) {
+		if (Math.abs(x - x1) <= 50 && Math.abs(y - y1) <= 25
+				&& clickable) {
 			Hud.clicked = true;
 			Hud.setCoord(x2, y2);
 		//	System.out.printf("X: %d Y: %d\n", x2, y2);
