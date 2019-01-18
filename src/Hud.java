@@ -3,9 +3,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class Hud  { 
-	
-	Player player=new Player("player",null);
+public class Hud {
+	ArrayList<Item> items=new ArrayList<Item>();
+	Player player = new Player("player", items);
 
 	public static String text = "";
 	public static Typewriter tw = new Typewriter(50);
@@ -14,7 +14,7 @@ public class Hud  {
 
 	public static boolean clicked = false;
 	private static float mouseX, mouseY;
-	public static ArrayList<Item> items = new ArrayList<Item>();
+	
 
 	public Hud() {
 		Thread tTypeWriter = new Thread(tw);
