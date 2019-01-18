@@ -1,54 +1,73 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
-import javax.imageio.ImageIO;
+import javax.print.DocFlavor.URL;
 
 public class Player {
+String name;
+ArrayList<Pokemon> pokemons;
+Pokemon currentpokemon;
+Item currentitem;
+ArrayList<Item> items;
+public Player(String name, ArrayList<Item> items) throws FileNotFoundException {
+	this.name=name;
+	this.items=items;
+}
+public void GeneratePokemon(ArrayList<Pokemon> input) throws FileNotFoundException {
+ArrayList<Pokemon> listofpokemon=new ArrayList<Pokemon>();
+java.net.URL url = getClass().getResource("/PokemonList.txt");
+BufferedReader in = null;
+try {
+	in = new BufferedReader(
+	        new InputStreamReader(
+	        url.openStream()));
+} catch (IOException e) {
+	e.printStackTrace();
+}
 
-	int x = 450;
-	int y = 45;
-	float angle = 0;
-
-	BufferedImage image = null;
-	AffineTransform tx;
-	AffineTransformOp op;
+String cur_line;
+try {
+while ((cur_line = in.readLine()) != null) {
+	String[] x=cur_line.split(",");
+	ArrayList<String> types=new ArrayList<String>();
+	ArrayList<Attack> skills=new ArrayList<Attack>();
+	int i=1;
+	while (Character.isLetter(x[i].charAt(0))) {
+		types.add(x[i]);
+		i++;
+	}
+	double health= Double.parseDouble(x[i]);
+	double attack=Double.parseDouble(x[i+1]);
+	double defense=Double.parseDouble(x[i+2]);
+	double speed=Double.parseDouble(x[i+3]);
+	i=i+4;
+	for (int z=0; z<4; z++) {
+		skills.add(new Attack(Double.parseDouble(x[i+3]), x[i],x[i+1],new Status(x[i+2], 0)));
+		i=i+4;
+	}
+	Pokemon y=new Pokemon(x[0],types, health, attack, defense ,speed, skills, new ArrayList<Status>());
+	listofpokemon.add(y);
+}
+}catch(Exception e) {
 	
-
-	public Player() {
-		define();
-	}
-
-	public void define() {
-		try {
-			image = ImageIO.read(new File("pika.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
+}
+ArrayList<Integer> duplicate=new ArrayList<Integer>();
+	for (int i=0; i<3; i++) {
+		Random rand=new Random();
+		int number=rand.nextInt(5);
+		while (duplicate.contains(number)) {
+			number=rand.nextInt(5);
 		}
-		double rotationRequired = Math.toRadians(angle);
-		double locationX = image.getWidth() / 2;
-		double locationY = image.getHeight() / 2;
-		tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		input.add(listofpokemon.get(number));	
+		duplicate.add(number);
+		
 	}
-
-	public void move() {
-		this.x += 1;
-		this.angle++;
-		double rotationRequired = Math.toRadians(angle);
-		double locationX = image.getWidth() / 2;
-		double locationY = image.getHeight() / 2;
-		tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-	}
-
-	public void draw(Graphics g) {
-		//g.drawImage(image, x, y, null);
-
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(op.filter(image, null), x, y, null);
-	}
+	
+}
 }

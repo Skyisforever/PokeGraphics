@@ -4,7 +4,7 @@ public class Room {
 	
 
 	private Background bg;
-	private Player p;
+	private Enemy p;
 	private Platform pt;
 	private Hud hud;
 	
@@ -19,7 +19,7 @@ public class Room {
 	
 	public void define() {
 		bg = new Background();
-		p = new Player();
+		p = new Enemy();
 		pt=new Platform();
 		hud = new Hud();
 		hud.setMode("choices");
