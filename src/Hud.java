@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Hud {
-	
 
 	public static String text = "";
 	public static Typewriter tw = new Typewriter(50);
@@ -13,7 +12,6 @@ public class Hud {
 
 	public static boolean clicked = false;
 	private static float mouseX, mouseY;
-	
 
 	public Hud() {
 		Thread tTypeWriter = new Thread(tw);
@@ -28,11 +26,15 @@ public class Hud {
 
 	public void setMode(String mode) {
 		Hud.mode = mode;
-		if (mode.equals("choices")) {
+		switch (mode) {
+		case "choices":
 			tw.set("ATTACK         BAG\n\nPOKEMON        RUN");
 			tw.next();
-		} else if (mode.equals("run")) {
-			run();
+			break;
+		case "run":
+			tw.set("You have nowhere to run!          Return");
+			tw.next();
+			break;
 		}
 	}
 
@@ -44,29 +46,32 @@ public class Hud {
 		if (clicked) {
 			switch (mode) {
 			case "choices":
-				if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
-					System.out.println("attack");
-					setMode("attack");
-
-				} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
-					System.out.println("bag");
-					setMode("bag");
-
-				} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
-					System.out.println("pokemon");
-					setMode("pokemon");
-
-				} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
-					setMode("run");
-
-				}
+				choices();
+				break;
 			case "run":
-				if ((mouseX >= 437 && mouseX <= 532) && (mouseY >= 429 && mouseY <= 456)) {
-					setMode("choices");
-				}
+				run();
 				break;
 			}
 			clicked = false;
+		}
+	}
+
+	public void choices() {
+		if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
+			System.out.println("attack");
+			setMode("attack");
+
+		} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
+			System.out.println("bag");
+			setMode("bag");
+
+		} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
+			System.out.println("pokemon");
+			setMode("pokemon");
+
+		} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
+			setMode("run");
+
 		}
 	}
 
@@ -110,8 +115,6 @@ public class Hud {
 	}
 
 	public void run() {
-		tw.set("You have nowhere to run!          Return");
-		tw.next();
 		if ((mouseX >= 437 && mouseX <= 532) && (mouseY >= 429 && mouseY <= 456)) {
 			setMode("choices");
 		}
@@ -132,8 +135,6 @@ public class Hud {
 		g.setFont(new Font("Courier", Font.BOLD, 20));
 		g.setColor(Color.BLACK);
 		drawString(g, text, 40, 450);
-		// g.setColor(Color.MAGENTA);
-		// g.fillRect(40, 420, Frame.size.width - 92, 110);
 	}
 
 	void drawString(Graphics g, String text, int x, int y) {
