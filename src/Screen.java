@@ -23,9 +23,9 @@ public class Screen extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		if (!defined)
 			return;
-		g.setColor(new Color(245,245,245));
-		g.fillRect(0,  0,  800,  600);
-		
+		g.setColor(new Color(245, 245, 245));
+		g.fillRect(0, 0, 800, 600);
+
 		room.draw(g);
 	}
 

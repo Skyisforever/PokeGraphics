@@ -19,8 +19,8 @@ public class Platform {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void draw(Graphics g) {
-		g.drawImage(img,  425, 150, null);
+		g.drawImage(img, 425, 150, null);
 	}
 }

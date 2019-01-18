@@ -4,10 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Hud {
-	ArrayList<Item> items=new ArrayList<Item>();
-	items.add(new Item("cureall", 1));
-	items.add(new Item("healingpotion", 1));
-	Player player = new Player("player", items);
+	
 
 	public static String text = "";
 	public static Typewriter tw = new Typewriter(50);

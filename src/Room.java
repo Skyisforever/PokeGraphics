@@ -1,26 +1,30 @@
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Room {
-	
-
+	public static Player player=new Player("player", null);
+	public static Player opponent = new Player("opponent", null);
 	private Background bg;
 	private Enemy p;
 	private Platform pt;
 	private Hud hud;
-	
+
 	public Room() {
 		define();
 	}
-	
+
 	void physics() {
 		hud.physics();
 	}
 
-	
 	public void define() {
+		 ArrayList<Item> items=new ArrayList<Item>();
+		items.add(new Item("cureall", 1));
+		items.add(new Item("healingpotion", 1));
+		player.items=items;
 		bg = new Background();
 		p = new Enemy();
-		pt=new Platform();
+		pt = new Platform();
 		hud = new Hud();
 		hud.setMode("choices");
 	}
