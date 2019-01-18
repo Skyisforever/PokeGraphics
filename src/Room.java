@@ -22,6 +22,8 @@ public class Room {
 		items.add(new Item("cureall", 1));
 		items.add(new Item("healingpotion", 1));
 		player.items=items;
+	//	player.draw(g);
+	//	opponent.draw(g);
 		bg = new Background();
 		p = new Enemy();
 		pt = new Platform();
