@@ -3,19 +3,19 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class Hud {
+public class Hud  { 
+	
+	Player player=new Player("player",null);
 
 	public static String text = "";
 	public static Typewriter tw = new Typewriter(50);
 
 	public static String mode = "";
-	
+
 	public static boolean clicked = false;
 	private static float mouseX, mouseY;
-	public static ArrayList<Item> items=new ArrayList<Item>();
-	
+	public static ArrayList<Item> items = new ArrayList<Item>();
 
-	
 	public Hud() {
 		Thread tTypeWriter = new Thread(tw);
 		tTypeWriter.start();
@@ -32,100 +32,93 @@ public class Hud {
 		if (mode.equals("choices")) {
 			tw.set("ATTACK         BAG\n\nPOKEMON        RUN");
 			tw.next();
-		}
-		else if (mode.equals("run")) {
-			System.out.println("You have nowhere to run!");
-			tw.set("You have nowhere to run!          Return");
-			tw.next();
-			
+		} else if (mode.equals("run")) {
+			run();
 		}
 	}
 
 	public static String getMode() {
 		return Hud.mode;
 	}
-	
+
 	public void physics() {
 		if (clicked) {
 			switch (mode) {
 			case "choices":
-				if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
+				if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
 					System.out.println("attack");
 					setMode("attack");
-					
-				}
-				else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
+
+				} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
 					System.out.println("bag");
 					setMode("bag");
-					
-				}
-				else if((mouseX>=34 && mouseX<=131) && (mouseY>=482 && mouseY<=511)) {
+
+				} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
 					System.out.println("pokemon");
 					setMode("pokemon");
-					
-				}
-				else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-					setMode("run");	
-					
+
+				} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
+					setMode("run");
+
 				}
 			case "run":
-			 if((mouseX>=437 && mouseX<=532) && (mouseY>=429 && mouseY<=456)) {
-				 setMode("choices");
-			 }
-				
+				if ((mouseX >= 437 && mouseX <= 532) && (mouseY >= 429 && mouseY <= 456)) {
+					setMode("choices");
+				}
+				break;
 			}
 			clicked = false;
 		}
 	}
+
 	public void attack() {
-				if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
-					//player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
-				}
-				else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
-					
-				}
-				else if((mouseX>=34 && mouseX<=131) && (mouseY>=482 && mouseY<=511)) {
-					
-				}
-				else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-					
-				}
+		if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
+			// player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
+		} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
 
-		
+		} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
+
+		} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
+
+		}
+
 	}
+
 	public void bag() {
-		if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
-			
-		}
-		else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
-			
-		}
-		else if((mouseX>=34 && mouseX<=131) && (mouseY>=482 && mouseY<=511)) {
-			
-		}
-		else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-			
+		if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
+
+		} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
+
+		} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
+
+		} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
+
 		}
 
+	}
 
-}
 	public void pokemon() {
-		if((mouseX>=33 && mouseX<=119) && (mouseY>=428 && mouseY<=455)) {
-			//player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
-		}
-		else if((mouseX>=203 && mouseX<=267) && (mouseY>=427 && mouseY<=453)) {
-			
-		}
-		else if((mouseX>=34 && mouseX<=131) && (mouseY>=482 && mouseY<=511)) {
-			
-		}
-		else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-			
+		if ((mouseX >= 33 && mouseX <= 119) && (mouseY >= 428 && mouseY <= 455)) {
+			// player.currentpokemon.currentattack=player.currentpokemon.attacks.get(1);
+		} else if ((mouseX >= 203 && mouseX <= 267) && (mouseY >= 427 && mouseY <= 453)) {
+
+		} else if ((mouseX >= 34 && mouseX <= 131) && (mouseY >= 482 && mouseY <= 511)) {
+
+		} else if ((mouseX >= 208 && mouseX <= 268) && (mouseY >= 484 && mouseY <= 508)) {
+
 		}
 
+	}
 
-}
-	
+	public void run() {
+		tw.set("You have nowhere to run!          Return");
+		tw.next();
+		if ((mouseX >= 437 && mouseX <= 532) && (mouseY >= 429 && mouseY <= 456)) {
+			setMode("choices");
+		}
+
+	}
+
 	public static void setCoord(float x, float y) {
 		mouseX = x;
 		mouseY = y;
