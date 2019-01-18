@@ -11,7 +11,7 @@ public class Typewriter implements Runnable {
 		while (true) {
 			while (!go) {
 				try {
-					Thread.sleep(1);
+					Thread.sleep(speed);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -23,6 +23,7 @@ public class Typewriter implements Runnable {
 					isTyping = true;
 				} else {
 					isTyping = false;
+					break;
 				}
 				Hud.text = text.substring(0, x);
 				try {
