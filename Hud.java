@@ -34,10 +34,10 @@ public class Hud {
 			tw.next();
 		}
 		else if (mode.equals("run")) {
+			System.out.println("You have nowhere to run!");
 			tw.set("You have nowhere to run!");
-			
 			tw.next();
-			setMode("choices");
+			
 		}
 	}
 
@@ -65,8 +65,7 @@ public class Hud {
 					
 				}
 				else if((mouseX>=208 && mouseX<=268) && (mouseY>=484 && mouseY<=508)) {
-					System.out.println("run");
-					setMode("run");
+					setMode("run");	
 					
 				}
 			}
