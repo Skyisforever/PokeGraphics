@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Screen extends JPanel implements Runnable {
 	private Thread thread = new Thread(this);
-	public static Room room = null;
-	private MouseHandle ms = new MouseHandle();
+	private Room room = null;
+	public static MouseHandle ms = new MouseHandle();
 
 	boolean defined = false;
 

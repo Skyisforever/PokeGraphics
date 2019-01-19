@@ -2,13 +2,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Room {
-	public static Player player=new Player("player", null);
-	public static Player opponent = new Player("opponent", null);
+
+	public Player player;
+	public Player opponent;
+
 	private Background bg;
-	private Enemy p;
+	private Enemy enemy;
 	private Platform pt;
 	private Hud hud;
-	
+
 	public Game game;
 	private Thread tGame;
 
@@ -16,35 +18,47 @@ public class Room {
 		define();
 	}
 
-	void physics() {
+	public void physics() {
 		hud.physics();
 	}
 
-	public void define() {
-		player.pokemons=new ArrayList<Pokemon>();
-		player.GeneratePokemon(player.pokemons);
-		player.currentpokemon=player.pokemons.get(0);
-		opponent.pokemons=new ArrayList<Pokemon>();
-		opponent.GeneratePokemon(opponent.pokemons);
-		opponent.currentpokemon=opponent.pokemons.get(0);
-		ArrayList<Item> items=new ArrayList<Item>();
-		items.add(new Item("cureall", 1));
-		items.add(new Item("healingpotion", 1));
-		player.items=items;
+	private void define() {
+
+		player = initPlayer("player");
+		opponent = initPlayer("opponent");
+
+		addItem(player, new Item("cureall", 1));
+		addItem(player, new Item("healingpotion", 1));
+
 		bg = new Background();
-		p = new Enemy();
+		enemy = new Enemy();
 		pt = new Platform();
-		hud = new Hud();
+		hud = new Hud(this);
 		
+		Screen.ms.setHud(hud);
+
 		game = new Game(player, opponent, hud);
 		tGame = new Thread(game);
 		tGame.start();
 	}
 
+	private Player initPlayer(String name) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		Player player = new Player(name, items);
+		player.pokemons = new ArrayList<Pokemon>();
+		player.GeneratePokemon(player.pokemons);
+		player.currentpokemon = player.pokemons.get(0);
+		return player;
+	}
+
+	private void addItem(Player player, Item item) {
+		player.items.add(item);
+	}
+
 	public void draw(Graphics g) {
 		bg.draw(g);
 		pt.draw(g);
-		p.draw(g);
+		enemy.draw(g);
 		hud.draw(g);
 	}
 }

@@ -1,5 +1,4 @@
-public class Game implements Runnable
-{
+public class Game implements Runnable {
 
 	// ALL FIELDS SHOULD BE PRIVATE
 	private String state = "idle";
@@ -12,10 +11,9 @@ public class Game implements Runnable
 
 	// REFERENCES TO APPROPRIATE OBJECTS
 	private Player player, opponent;
-	private Hud    hud;
+	private Hud hud;
 
-	public Game(Player player, Player opponent, Hud hud)
-	{
+	public Game(Player player, Player opponent, Hud hud) {
 		this.player = player;
 		this.opponent = opponent;
 		this.hud = hud;
@@ -24,8 +22,7 @@ public class Game implements Runnable
 	}
 
 	// DO NOT MODIFY
-	public void actionTaken(float x, float y)
-	{
+	public void actionTaken(float x, float y) {
 		this.x = (int) x;
 		this.y = (int) y;
 		go = true;
@@ -33,8 +30,7 @@ public class Game implements Runnable
 	}
 
 	// DO NOT MODIFY EXCEPT FOR CHANGING hud.set() TEXT
-	public void setState(String state)
-	{
+	public void setState(String state) {
 		this.state = state;
 
 		switch (state) {
@@ -45,29 +41,16 @@ public class Game implements Runnable
 			hud.set("You have nowhere to run!          Return");
 			break;
 		case "attack":
-			hud.set(Room.player.currentpokemon.skills.get(0).name
-			                + "         "
-			                + Room.player.currentpokemon.skills
-			                                .get(1).name
-			                + "\n\n"
-			                + Room.player.currentpokemon.skills
-			                                .get(2).name
-			                + "        "
-			                + Room.player.currentpokemon.skills
-			                                .get(3).name
-			                + "           return");
+			hud.set(player.currentpokemon.skills.get(0).name + "         " + player.currentpokemon.skills.get(1).name
+					+ "\n\n" + player.currentpokemon.skills.get(2).name + "        "
+					+ player.currentpokemon.skills.get(3).name + "           return");
 			break;
 		case "bag":
-			hud.set(Room.player.items.get(0).name + "         "
-			                + Room.player.items.get(1).name
-			                + "         return");
+			hud.set(player.items.get(0).name + "         " + player.items.get(1).name + "         return");
 			break;
 		case "pokemon":
-			hud.set(Room.player.pokemons.get(0).name + "          "
-			                + Room.player.pokemons.get(1).name
-			                + "          "
-			                + Room.player.pokemons.get(2).name
-			                + "       return");
+			hud.set(player.pokemons.get(0).name + "          " + player.pokemons.get(1).name + "          "
+					+ player.pokemons.get(2).name + "       return");
 			break;
 		}
 
@@ -76,8 +59,7 @@ public class Game implements Runnable
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		for (;;) {
 			while (!go) {
 				sleep(10);
@@ -105,8 +87,7 @@ public class Game implements Runnable
 		}
 	}
 
-	public void choices()
-	{
+	public void choices() {
 		if ((x >= 33 && x <= 119) && (y >= 428 && y <= 455)) {
 			setState("attack");
 		} else if ((x >= 203 && x <= 267) && (y >= 427 && y <= 453)) {
@@ -118,45 +99,38 @@ public class Game implements Runnable
 		}
 	}
 
-	private void runAway()
-	{
+	private void runAway() {
 		if ((x >= 433 && x <= 532) && (y >= 428 && y <= 460)) {
 			setState("choices");
 		}
 	}
 
-	private void attack()
-	{
+	private void attack() {
 		if ((x >= 422 && x <= 525) && (y >= 483 && y <= 512)) {
 			setState("choices");
 			return;
 		}
 		if ((x >= 79 && x <= 145) && (y >= 449 && y <= 459)) {
-			player.currentpokemon.currentattack = player.currentpokemon.skills
-			                .get(0);
+			player.currentpokemon.currentattack = player.currentpokemon.skills.get(0);
 
 		} else if ((x >= 220 && x <= 361) && (y >= 427 && y <= 455)) {
-			player.currentpokemon.currentattack = player.currentpokemon.skills
-			                .get(1);
+			player.currentpokemon.currentattack = player.currentpokemon.skills.get(1);
 
 		} else if ((x >= 34 && x <= 131) && (y >= 482 && y <= 511)) {
-			player.currentpokemon.currentattack = player.currentpokemon.skills
-			                .get(2);
+			player.currentpokemon.currentattack = player.currentpokemon.skills.get(2);
 
 		} else if ((x >= 208 && x <= 268) && (y >= 484 && y <= 508)) {
-			player.currentpokemon.currentattack = player.currentpokemon.skills
-			                .get(3);
+			player.currentpokemon.currentattack = player.currentpokemon.skills.get(3);
 		} else {
 			return;
 		}
-		
+
 		doAttack();
 	}
 
 	// METHODS RELATED TO ATTACK
 	// PLACEHOLDER
-	private void doAttack()
-	{
+	private void doAttack() {
 		String pokemon = player.currentpokemon.name;
 		String attack = player.currentpokemon.currentattack.name;
 		hud.set(pokemon + " uses " + attack + "!");
@@ -173,14 +147,12 @@ public class Game implements Runnable
 	}
 
 	// METHODS RELATED TO BAG
-	//PLACEHOLDER
-	private void bag()
-	{
+	// PLACEHOLDER
+	private void bag() {
 
 	}
 
-	private void sleep(int i)
-	{
+	private void sleep(int i) {
 		try {
 			Thread.sleep(i);
 		} catch (Exception e) {

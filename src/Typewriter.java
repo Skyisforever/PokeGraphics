@@ -4,6 +4,7 @@ public class Typewriter implements Runnable {
 	private boolean isTyping;
 	private int speed;
 	private boolean go;
+	private Hud hud;
 
 	public void run() {
 		System.out.println("Entered thread.");
@@ -24,7 +25,7 @@ public class Typewriter implements Runnable {
 					isTyping = false;
 					break;
 				}
-				Hud.text = text.substring(0, x);
+				hud.text = text.substring(0, x);
 				try {
 					Thread.sleep(this.speed);
 				} catch (Exception e) {
@@ -37,7 +38,8 @@ public class Typewriter implements Runnable {
 		go = true;
 	}
 
-	public Typewriter(int speed) {
+	public Typewriter(int speed, Hud hud) {
+		this.hud = hud;
 		x = 0;
 		this.speed = speed;
 		isTyping = false;

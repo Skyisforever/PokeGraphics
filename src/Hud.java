@@ -4,34 +4,33 @@ import java.awt.Graphics;
 
 public class Hud {
 
-	public static String text = "";
-	public static Typewriter tw = new Typewriter(50);
+	public String text = "";
+	public boolean clicked = false;
+	private float mouseX, mouseY;
 
-	public static String mode = "";
+	public Typewriter tw;
+	private Room room;
 
-	public static boolean clicked = false;
-	private static float mouseX, mouseY;
-
-	public Hud() {
-		Thread tTypeWriter = new Thread(tw);
-		tTypeWriter.start();
+	public Hud(Room room) {
+		this.room = room;
 		define();
 	}
 
 	public void define() {
-		// tw.set("This is a sample piece of text you piece of heigui da bian");
-		// tw.next();
+		tw = new Typewriter(50, this);
+		Thread tTypeWriter = new Thread(tw);
+		tTypeWriter.start();
 	}
 
 
 	public void physics() {
 		if (clicked) {
-			Screen.room.game.actionTaken(mouseX, mouseY);
+			room.game.actionTaken(mouseX, mouseY);
 			clicked = false;
 		}
 	}
 
-	public static void setCoord(float x, float y) {
+	public void setCoord(float x, float y) {
 		mouseX = x;
 		mouseY = y;
 	}
