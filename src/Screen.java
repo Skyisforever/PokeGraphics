@@ -3,10 +3,11 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Screen extends JPanel implements Runnable {
-	Thread thread = new Thread(this);
-	Room room = null;
-	MouseHandle ms = new MouseHandle();
+	private Thread thread = new Thread(this);
+	public static Room room = null;
+	private MouseHandle ms = new MouseHandle();
 
 	boolean defined = false;
 

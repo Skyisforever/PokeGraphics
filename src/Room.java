@@ -8,6 +8,9 @@ public class Room {
 	private Enemy p;
 	private Platform pt;
 	private Hud hud;
+	
+	public Game game;
+	private Thread tGame;
 
 	public Room() {
 		define();
@@ -24,17 +27,18 @@ public class Room {
 		opponent.pokemons=new ArrayList<Pokemon>();
 		opponent.GeneratePokemon(opponent.pokemons);
 		opponent.currentpokemon=opponent.pokemons.get(0);
-		 ArrayList<Item> items=new ArrayList<Item>();
+		ArrayList<Item> items=new ArrayList<Item>();
 		items.add(new Item("cureall", 1));
 		items.add(new Item("healingpotion", 1));
 		player.items=items;
-	//	player.draw(g);
-	//	opponent.draw(g);
 		bg = new Background();
 		p = new Enemy();
 		pt = new Platform();
 		hud = new Hud();
-		hud.setMode("choices");
+		
+		game = new Game(player, opponent, hud);
+		tGame = new Thread(game);
+		tGame.start();
 	}
 
 	public void draw(Graphics g) {
