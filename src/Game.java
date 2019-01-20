@@ -35,9 +35,18 @@ public class Game implements Runnable {
 
 		switch (state) {
 		case "choices":
-			hud.set("ATTACK         BAG\n\nPOKEMON        RUN");
+			String choiceText="";
+			choiceText+=String.format("%-15s", "ATTACK");
+			choiceText+=String.format("%-15s", "BAG");
+			choiceText+=String.format("%-15s", "POKEMON");
+			choiceText+=String.format("%-15s", "RUN");
+			choiceText=choiceText.substring(0,30)+"\n\n"+choiceText.substring(30);
+			hud.set(choiceText);
 			break;
 		case "run":
+			String runText="";
+			runText+=String.format("%-15s", "You have nowhere to run!");
+			runText+=String.format("%-15s", "return");
 			hud.set("You have nowhere to run!          Return");
 			break;
 		case "attack":
@@ -49,11 +58,19 @@ public class Game implements Runnable {
 			hud.set(attackText);
 			break;
 		case "bag":
-			hud.set(player.items.get(0).name + "         " + player.items.get(1).name + "         return");
+			String bagText="";
+			bagText+=String.format("%-11s", player.items.get(0).name);
+			bagText+=String.format("%-17s", player.items.get(1).name);
+			bagText+=String.format("%-15s", "return");
+			hud.set(bagText);
 			break;
 		case "pokemon":
-			hud.set(player.pokemons.get(0).name + "          " + player.pokemons.get(1).name + "          "
-					+ player.pokemons.get(2).name + "       return");
+			String pokemonText="";
+			for(int i=0;i<3;i++) {
+				pokemonText+=String.format("%-15s", player.pokemons.get(i).name);
+			}
+			pokemonText=pokemonText.substring(0,30)+"\n\n"+pokemonText.substring(30)+"return";
+			hud.set(pokemonText);
 			break;
 		}
 
@@ -81,6 +98,9 @@ public class Game implements Runnable {
 			case "bag":
 				bag();
 				break;
+			case "pokemon":
+				pokemon();
+				break;
 			default:
 				// if click occurs not on text
 				go = false;
@@ -89,7 +109,22 @@ public class Game implements Runnable {
 
 		}
 	}
+	public void pokemon() {
+		if ((x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
+			setState("choices");
+			return;
+		}
+		if ((x >= 39 && x <= 164) && (y >= 431 && y <= 452)) {
+			//swapPokemon();
 
+		} else if ((x >= 206 && x <= 326) && (y >= 431 && y <= 455)) {
+			//swapPokemon();
+
+		} else if ((x >= 34 && x <= 158) && (y >= 487 && y <= 509)) {
+			//swapPokemon();
+
+		}
+	}
 	public void choices() {
 		if ((x >= 33 && x <= 119) && (y >= 428 && y <= 455)) {
 			setState("attack");
@@ -152,7 +187,17 @@ public class Game implements Runnable {
 	// METHODS RELATED TO BAG
 	// PLACEHOLDER
 	private void bag() {
+		if ((x >= 362 && x <= 461) && (y >= 430 && y <= 458)) {
+			setState("choices");
+			return;
+		}
+		if ((x >= 37 && x <= 135) && (y >= 429 && y <= 456)) {
+			//useitem();
 
+		} else if ((x >= 166 && x <= 333) && (y >= 426 && y <= 454)) {
+			//useitem();
+
+		} 
 	}
 
 	private void sleep(int i) {
