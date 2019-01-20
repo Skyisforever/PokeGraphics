@@ -41,9 +41,12 @@ public class Game implements Runnable {
 			hud.set("You have nowhere to run!          Return");
 			break;
 		case "attack":
-			hud.set(player.currentpokemon.skills.get(0).name + "         " + player.currentpokemon.skills.get(1).name
-					+ "\n\n" + player.currentpokemon.skills.get(2).name + "        "
-					+ player.currentpokemon.skills.get(3).name + "           return");
+			String attackText = "";
+			for (Attack a : player.currentpokemon.skills) {
+				attackText += String.format("%-15s", a.name);
+			}
+			attackText = attackText.substring(0, 30) + "\n\n" + attackText.substring(30) + "return";
+			hud.set(attackText);
 			break;
 		case "bag":
 			hud.set(player.items.get(0).name + "         " + player.items.get(1).name + "         return");
