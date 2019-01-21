@@ -212,6 +212,7 @@ public class Game implements Runnable {
 	// METHODS RELATED TO ATTACK
 	// PLACEHOLDER
 	private void Battle() {
+		String nextState="pokemon";
 		if (player.currentpokemon.currentattack == null) {
 
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
@@ -225,7 +226,7 @@ public class Game implements Runnable {
 				sleep(1000);
 				setState("pokemon");
 			}
-			return;
+			
 		}
 		if (applyparalysis(player.currentpokemon)) {
 			player.currentpokemon.speed = player.currentpokemon.speed / 2;
@@ -247,7 +248,7 @@ public class Game implements Runnable {
 				opponentswap(opponent);
 				// draw new pokemon
 				setState("choices");
-				return;
+				
 			}
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
 			if (player.currentpokemon.currenthealth <= 0) {
@@ -258,7 +259,7 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
-				return;
+				
 			}
 
 		} else if (player.currentpokemon.speed < opponent.currentpokemon.speed) {
@@ -271,7 +272,7 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
-				return;
+				
 			}
 			Modifycurrenthealth(player.currentpokemon, opponent.currentpokemon, player.currentpokemon.currentattack);
 			if (opponent.currentpokemon.currenthealth <= 0) {
@@ -282,15 +283,16 @@ public class Game implements Runnable {
 				sleep(1000);
 				opponentswap(opponent);
 				setState("choices");
-				return;
+				
 			}
 		}
 		if (player.currentpokemon.health <= 0) {
 			mustswap = true;
 			setState("pokemon");
-			return;
+			
 		}
 		player.currentpokemon.currentattack = null;
+		setState(nextState);
 		setState("choices");
 	}
 
