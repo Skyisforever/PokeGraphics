@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game implements Runnable {
 
@@ -113,8 +114,8 @@ public class Game implements Runnable {
 	}
 
 	public void pokemon() {
-		if (player.pokemons.get(0).health < 0 && player.pokemons.get(1).health < 0
-				&& player.pokemons.get(2).health < 0) {
+		if (player.pokemons.get(0).currenthealth <= 0 && player.pokemons.get(1).currenthealth <= 0
+				&& player.pokemons.get(2).currenthealth <= 0) {
 			hud.set("All your pokemon have fainted! Better luck next time.");
 
 			while (hud.isTyping()) {
@@ -123,9 +124,13 @@ public class Game implements Runnable {
 			sleep(10000);
 			System.exit(0);
 		}
-		if (!mustswap && (x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
+		if ((x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
+		    if (mustswap) {
+		        go = false;
+		    } else {
 			setState("choices");
-			return;
+		    }
+		    return;
 		}
 		if ((x >= 39 && x <= 164) && (y >= 431 && y <= 452)) {
 			swapPokemon(0);
@@ -225,6 +230,7 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
+				return;
 			}
 			
 		}
@@ -248,6 +254,7 @@ public class Game implements Runnable {
 				opponentswap(opponent);
 				// draw new pokemon
 				setState("choices");
+				return;
 				
 			}
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
@@ -259,6 +266,7 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
+				return;
 				
 			}
 
@@ -272,6 +280,7 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
+				return;
 				
 			}
 			Modifycurrenthealth(player.currentpokemon, opponent.currentpokemon, player.currentpokemon.currentattack);
@@ -283,57 +292,69 @@ public class Game implements Runnable {
 				sleep(1000);
 				opponentswap(opponent);
 				setState("choices");
+				return;
 				
 			}
 		}
 		if (player.currentpokemon.health <= 0) {
 			mustswap = true;
 			setState("pokemon");
+			return;
 			
 		}
 		player.currentpokemon.currentattack = null;
-		setState(nextState);
 		setState("choices");
 	}
 
 	public void Modifycurrenthealth(Pokemon x, Pokemon y, Attack attack) {
-		// if (applysleep(x)) {
-		// return;
-		// }
-		// if (applyfreeze(x)) {
-		// return;
-		// }
+		 if (applysleep(x)) {
+		 return;
+		 }
+		 if (applyfreeze(x)) {
+		 return;
+		 }
 		double TrueEffectiveness = 1;
 		for (int i = 0; i < y.type.size(); i++) {
 			TrueEffectiveness *= Effectiveness(y.type.get(i), attack);
 		}
 		double finaldamage = Math.round((attack.basedamage * (x.attack / y.defense)) * TrueEffectiveness);
-//		if(attack.name.equals("WakeupSlap")) {
-//			if(isasleep(y)) {
-//			finaldamage=finaldamage*2;
-//			slowprint(x.name+" uses " +attack.name+"! ");
-//			slowestprint("It deals "+finaldamage+" damage");
-//			slowprint(y.name+" suffered twice the damage and has woken up.");
-//			wakeup(y);
-//			y.currenthealth=y.currenthealth-finaldamage;
-//			return;
-//			}
-//		}
+		if(attack.name.equals("WakeupSlap")) {
+			if(isasleep(y)) {
+			finaldamage=finaldamage*2;
+			hud.set(x.name+" uses " +attack.name+"! ");
+			while (hud.isTyping()) {
+				sleep(10);
+			}
+			sleep(1000);
+			hud.set(y.name+" suffered twice the damage and has woken up.");
+			while (hud.isTyping()) {
+				sleep(10);
+			}
+			sleep(1000);
+			wakeup(y);
+			y.currenthealth=y.currenthealth-finaldamage;
+			return;
+			}
+		}
 		hud.set(x.name + " uses " + x.currentattack.name + "!");
 		while (hud.isTyping()) {
 			sleep(10);
 		}
 
 		sleep(3000);
-//		if (applyconfusion(x)) {
-//			Random h=new Random();
-//			int b=h.nextInt(100);
-//			if (b<50) {
-//				x.currenthealth=x.currenthealth-finaldamage;
-//				slowprint(x.name+" is confused and attacked himself for "+finaldamage+" damage!");
-//				return;
-//			}
-//		}
+		if (applyconfusion(x)) {
+			Random h=new Random();
+			int b=h.nextInt(100);
+			if (b<50) {
+				x.currenthealth=x.currenthealth-finaldamage;
+				hud.set(x.name+" is confused and attacked himself!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				return;
+			}
+		}
 		if (TrueEffectiveness > 1) {
 
 			hud.set("It's Super Effective!!!");
@@ -357,49 +378,76 @@ public class Game implements Runnable {
 
 			sleep(1000);
 		}
-//		if (attack.status.name.equals("poison")) {
-//			Random rand=new Random();
-//			int num=rand.nextInt(100);
-//			if (num<45) {
-//				y.statuses.add(new Status("poison", 99));
-//				slowestprint(y.name+" has been poisoned!");
-//			}
-//		}
-//		else if (attack.status.name.equals("sleep")) {
-//			Random rand=new Random();
-//			int num=rand.nextInt(100);
-//			if (num<75) {
-//				y.statuses.add(new Status("sleep", 2));
-//				slowestprint(y.name+" has fallen asleep!");
-//			}
-//			else {
-//				slowestprint(y.name+" successfully resisted the urge to fall asleep");
-//			}
-//		}
-//		else if (attack.status.name.equals("paralysis")) {
-//			Random rand=new Random();
-//			int num=rand.nextInt(100);
-//			if (num<50) {
-//				y.statuses.add(new Status("paralysis", 2));
-//				slowestprint(y.name+" has been paralyzed!");
-//			}
-//		}
-//		else if (attack.status.name.equals("freeze")) {
-//			Random rand=new Random();
-//			int num=rand.nextInt(100);
-//			if (num<30) {
-//				y.statuses.add(new Status("freeze", 1));
-//				slowestprint(y.name+" has been frozen!");
-//			}
-//		}
-//		else if (attack.status.name.equals("confuse")) {
-//			Random rand=new Random();
-//			int num=rand.nextInt(100);
-//			if (num<75) {
-//				y.statuses.add(new Status("confuse", 5));
-//				slowestprint(y.name+" has been confused!");
-//			}
-//		}
+		if (attack.status.name.equals("poison")) {
+			Random rand=new Random();
+			int num=rand.nextInt(100);
+			if (num<45) {
+				y.statuses.add(new Status("poison", 99));
+				hud.set(y.name+" has been poisoned!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+			}
+		}
+		else if (attack.status.name.equals("sleep")) {
+			Random rand=new Random();
+			int num=rand.nextInt(100);
+			if (num<75) {
+				y.statuses.add(new Status("sleep", 2));
+				hud.set(y.name+" has fallen asleep!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+
+				sleep(1000);
+			}
+			else {
+				hud.set(y.name+" successfully resisted the urge to fall asleep");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+
+				sleep(1000);
+			}
+		}
+		else if (attack.status.name.equals("paralysis")) {
+			Random rand=new Random();
+			int num=rand.nextInt(100);
+			if (num<50) {
+				y.statuses.add(new Status("paralysis", 2));
+				hud.set(y.name+" has been paralyzed");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+			}
+		}
+		else if (attack.status.name.equals("freeze")) {
+			Random rand=new Random();
+			int num=rand.nextInt(100);
+			if (num<30) {
+				y.statuses.add(new Status("freeze", 1));
+				hud.set(y.name+" has been frozen!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+
+				sleep(1000);
+			}
+		}
+		else if (attack.status.name.equals("confuse")) {
+			Random rand=new Random();
+			int num=rand.nextInt(100);
+			if (num<75) {
+				y.statuses.add(new Status("confuse", 5));
+				hud.set(y.name+" has been confused!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+			}
+		}
 		y.currenthealth = y.currenthealth - finaldamage;
 		if (attack.name.equals("LeechSeed")) {
 			x.currenthealth = x.currenthealth + Math.round(finaldamage * .4);
@@ -429,10 +477,10 @@ public class Game implements Runnable {
 			return;
 		}
 		if ((x >= 37 && x <= 135) && (y >= 429 && y <= 456)) {
-			// useitem();
+			 useitem("cureall");
 
 		} else if ((x >= 166 && x <= 333) && (y >= 426 && y <= 454)) {
-			// useitem();
+			useitem("healingpotion");
 
 		}
 	}
@@ -453,7 +501,7 @@ public class Game implements Runnable {
 			}
 			sleep(2000);
 			opponent.currentpokemon = opponent.pokemons.get(2);
-		} else if (current.equals(opponent.pokemons.get(2).name)) {
+		} else if (current.equals(opponent.pokemons.get(2))) {
 			hud.set("Congratulations, you are the Pokemon Champion!");
 			while (hud.isTyping()) {
 				sleep(10);
@@ -483,7 +531,97 @@ public class Game implements Runnable {
 		}
 		return false;
 	}
-
+	private boolean applyfreeze(Pokemon x) {
+		if (x.statuses==null) {
+			return false;
+		}
+		for (int i=0; i<x.statuses.size(); i++) {
+			if (x.statuses.get(i).name.equals("freeze")) {
+				x.statuses.get(i).duration--;
+				if (x.statuses.get(i).duration==0) {
+					x.statuses.remove(i);
+				}
+				hud.set(x.name+" is frozen and cannot move!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean applysleep(Pokemon x) {
+		if (x.statuses==null) {
+			return false;
+		}
+		for (int i=0; i<x.statuses.size(); i++) {
+			if (x.statuses.get(i).name.equals("sleep")) {
+				x.statuses.get(i).duration--;
+				if (x.statuses.get(i).duration==0) {
+					x.statuses.remove(i);
+				}
+				hud.set(x.name+" is sleeping and cannot perform any action.");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				return true;
+			}
+		}
+		return false;
+		}
+	private void applypoison(Pokemon one, Pokemon two) {
+		if(one.statuses!=null) {
+		for (int i=0; i<one.statuses.size();i++) {
+			if (one.statuses.get(i).name.equals("poison")) {
+				hud.set(one.name+" is poisoned and takes some damage.");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(2000);
+				one.currenthealth=one.currenthealth*0.8;
+			}
+		}
+		}
+		if(two.statuses!=null) {
+		for (int i=0; i<two.statuses.size();i++) {
+			if (two.statuses.get(i).name.equals("poison")) {
+				hud.set(two.name+" is poisoned and takes some damage.");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(2000);
+				two.currenthealth=two.currenthealth*0.8;
+			}
+		}
+		}
+	}
+	private boolean applyconfusion(Pokemon x) {
+		if (x.statuses==null) {
+			return false;
+		}
+		for (int i=0; i<x.statuses.size(); i++) {
+			if (x.statuses.get(i).name.equals("confuse")) {
+				x.statuses.get(i).duration--;
+				if (x.statuses.get(i).duration==0) {
+					x.statuses.remove(i);
+				}
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	static boolean isasleep(Pokemon x) {
+		for (int i=0; i<x.statuses.size();i++) {
+			if (x.statuses.get(i).name.equals("sleep")) {
+				
+				return true;
+			}
+		}
+		return false;
+	}
 	public static double Effectiveness(String type, Attack attack) {
 		if ((attack.type.equals("water") || attack.type.equals("grass")) && type.equals("water")) {
 			return 2;
@@ -527,7 +665,60 @@ public class Game implements Runnable {
 		}
 		return 1;
 	}
-
+	private void useitem(String item) {
+		if (item.equals("healingpotion")) {
+			if (player.items.get(1).stock==0) {
+				hud.set("You are out of that item");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("bag");
+				return;
+			}
+			else {
+				player.currentpokemon.currenthealth=player.currentpokemon.health;
+				hud.set(player.currentpokemon.name+" has been healed to full health.");
+				player.items.get(1).stock--;
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
+				return;
+			}
+		}
+		else if(item.equals("cureall")) {
+			if (player.items.get(1).stock==0) {
+				hud.set("You are out of that item");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("bag");
+				return;
+			}
+			else {
+				player.currentpokemon.statuses.clear();
+				hud.set(player.currentpokemon.name+" has been cured of all ailments.");
+				player.items.get(1).stock--;
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
+				return;
+			}
+		}
+	}
+	static void wakeup(Pokemon x) {
+		for (int i=0; i<x.statuses.size();i++) {
+			if (x.statuses.get(i).name.equals("sleep")) {
+				x.statuses.remove(i);
+				return;
+			}
+		}
+	}
 	private void sleep(int i) {
 		try {
 			Thread.sleep(i);
