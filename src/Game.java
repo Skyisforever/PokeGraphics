@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game implements Runnable {
 
@@ -123,9 +124,13 @@ public class Game implements Runnable {
 			sleep(10000);
 			System.exit(0);
 		}
-		if (!mustswap && (x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
+		if ((x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
+		    if (mustswap) {
+		        go = false;
+		    } else {
 			setState("choices");
-			return;
+		    }
+		    return;
 		}
 		if ((x >= 39 && x <= 164) && (y >= 431 && y <= 452)) {
 			swapPokemon(0);
@@ -472,10 +477,10 @@ public class Game implements Runnable {
 			return;
 		}
 		if ((x >= 37 && x <= 135) && (y >= 429 && y <= 456)) {
-			// useitem();
+			 useitem("cureall");
 
 		} else if ((x >= 166 && x <= 333) && (y >= 426 && y <= 454)) {
-			// useitem();
+			useitem("healingpotion");
 
 		}
 	}
@@ -659,6 +664,52 @@ public class Game implements Runnable {
 			return 0;
 		}
 		return 1;
+	}
+	private void useitem(String item) {
+		if (item.equals("healingpotion")) {
+			if (player.items.get(1).stock==0) {
+				hud.set("You are out of that item");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("bag");
+				return;
+			}
+			else {
+				player.currentpokemon.currenthealth=player.currentpokemon.health;
+				hud.set(player.currentpokemon.name+" has been healed to full health.");
+				player.items.get(1).stock--;
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
+				return;
+			}
+		}
+		else if(item.equals("cureall")) {
+			if (player.items.get(1).stock==0) {
+				hud.set("You are out of that item");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("bag");
+				return;
+			}
+			else {
+				player.currentpokemon.statuses.clear();
+				hud.set(player.currentpokemon.name+" has been cured of all ailments.");
+				player.items.get(1).stock--;
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
+				return;
+			}
+		}
 	}
 	static void wakeup(Pokemon x) {
 		for (int i=0; i<x.statuses.size();i++) {
