@@ -32,7 +32,7 @@ public class Room {
 		addItem(player, new Item("cureall", 1));
 		addItem(player, new Item("healingpotion", 1));
 
-		bg = new Background();
+		bg = new Background(this);
 		enemy = new Enemy();
 		pt = new Platform();
 		hud = new Hud(this);
@@ -58,10 +58,12 @@ public class Room {
 	}
 
 	public void draw(Graphics g) {
+		pt.draw(g);
 	    player.draw(g);
 	    opponent.draw(g);
 		bg.draw(g);
-		pt.draw(g);
+		player.currentpokemon.effect.draw(g);		// might need to change this later
+		opponent.currentpokemon.effect.draw(g);		// ^^
 		//enemy.draw(g);
 		hud.draw(g);
 	}

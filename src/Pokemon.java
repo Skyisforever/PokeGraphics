@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -20,11 +21,13 @@ public class Pokemon {
 	double currenthealth;
 	ArrayList<Status> statuses;
 	Attack currentattack;
-	String animationType;
 	Player player;
 
-	float x, y;
-	boolean opponent = false;
+	
+	private float x, y;
+	private boolean opponent = false;
+	private String animationType;
+	public Effect effect = null;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
 			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player) {
@@ -51,7 +54,7 @@ public class Pokemon {
 			y = 300;
 		}
 		animationType = "";
-		name = "Pikachu";
+		effect = new Effect(this);
 		// if (name.equals("Pikachu")) {
 		try {
 			pokemonimage = ImageIO.read(new File("pika.png"));
@@ -103,10 +106,9 @@ public class Pokemon {
 	}
 
 	int frame_counter = 0;
-	int dx = 0;
-	int dy = 0;
-
 	public void physics() {
+		int dx = 0;
+		int dy = 0;
 		if (!animationType.equals("")) {
 			switch (animationType) {
 			case "attack":
@@ -126,6 +128,7 @@ public class Pokemon {
 					}
 					break;
 				case "Thunder":
+					effect.set(currentattack.name);
 					// do some other animation
 					break;
 				default:
@@ -149,11 +152,16 @@ public class Pokemon {
 		}
 
 	}
+	
+	public void effectDone() {
+		animationType = "";
+	}
 
 	public void draw(Graphics g) {
 		// Graphics2D g2d = (Graphics2D) g;
 		// g2d.drawImage(op.filter(pokemonimage, null), 400, 600, null);
 		g.drawImage(pokemonimage, (int) x, (int) y, null);
+		
 	}
 
 }

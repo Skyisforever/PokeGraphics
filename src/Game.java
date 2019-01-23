@@ -302,7 +302,7 @@ public class Game implements Runnable {
 			return;
 			
 		}
-		player.currentpokemon.currentattack = null;
+		//player.currentpokemon.currentattack = null;
 		setState("choices");
 	}
 
