@@ -16,7 +16,6 @@ public class Background {
 
 	public void define() {
 		try {
-			image = ImageIO.read(new File("background.png"));
 			image = null;
 		} catch (Exception e) {
 			e.printStackTrace();
