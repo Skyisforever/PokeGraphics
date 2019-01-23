@@ -23,7 +23,7 @@ public class Enemy {
 
 	public void define() {
 		try {
-			image = ImageIO.read(new File("pika.png"));
+			image = ImageIO.read(Enemy.class.getResource("pika.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

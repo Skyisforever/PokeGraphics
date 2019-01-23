@@ -26,7 +26,7 @@ public class Effect {
 		case "Thunder":
 			darkenScreen = true;
 			try {
-				img = ImageIO.read(new File("res/lightning2.png"));
+				img = ImageIO.read(Effect.class.getResource("lightning2.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -57,7 +57,7 @@ public class Pokemon {
 		effect = new Effect(this);
 		// if (name.equals("Pikachu")) {
 		try {
-			pokemonimage = ImageIO.read(new File("pika.png"));
+			pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
