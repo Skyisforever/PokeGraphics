@@ -56,9 +56,10 @@ public class Room {
 	}
 
 	public void draw(Graphics g) {
+	    player.draw(g);
 		bg.draw(g);
 		pt.draw(g);
-		enemy.draw(g);
+		//enemy.draw(g);
 		hud.draw(g);
 	}
 }

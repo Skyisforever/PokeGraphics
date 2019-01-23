@@ -31,15 +31,16 @@ public class Pokemon {
 		this.type = type;
 		this.statuses = statuses;
 		currenthealth = health;
+		define();
 	}
 	public void define() {
-	 if (name.equals("pikachu")) {
+	 //if (name.equals("Pikachu")) {
 			try {
 				pokemonimage = ImageIO.read(new File("pika.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 //	 else if (name.equals("bulbasaur")) {
 //			try {
 //				pokemonimage=ImageIO.read(new File("bulbasaur.png"));
@@ -74,8 +75,9 @@ public class Pokemon {
 		
 	}
 	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(op.filter(pokemonimage, null), 400, 600, null);
+		//Graphics2D g2d = (Graphics2D) g;
+		//g2d.drawImage(op.filter(pokemonimage, null), 400, 600, null);
+	    g.drawImage(pokemonimage, 0, 0, null);
 	}
 	
 }
