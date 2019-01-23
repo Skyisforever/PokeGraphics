@@ -47,7 +47,7 @@ public class Player {
 					skills.add(new Attack(Double.parseDouble(x[i + 3]), x[i], x[i + 1], new Status(x[i + 2], 0)));
 					i = i + 4;
 				}
-				Pokemon y = new Pokemon(x[0], types, health, attack, defense, speed, skills, new ArrayList<Status>());
+				Pokemon y = new Pokemon(x[0], types, health, attack, defense, speed, skills, new ArrayList<Status>(), this);
 				listofpokemon.add(y);
 			}
 		} catch (Exception e) {
@@ -65,6 +65,10 @@ public class Player {
 
 		}
 
+	}
+	
+	public void physics() {
+	    currentpokemon.physics();
 	}
 	
 	public void draw(Graphics g) {

@@ -20,6 +20,8 @@ public class Room {
 
 	public void physics() {
 		hud.physics();
+		player.physics();
+		opponent.physics();
 	}
 
 	private void define() {
@@ -57,6 +59,7 @@ public class Room {
 
 	public void draw(Graphics g) {
 	    player.draw(g);
+	    opponent.draw(g);
 		bg.draw(g);
 		pt.draw(g);
 		//enemy.draw(g);

@@ -340,6 +340,22 @@ public class Game implements Runnable {
 		while (hud.isTyping()) {
 			sleep(10);
 		}
+		
+		/* GOING TO HAVE TO IMPLEMENT LOGIC TO MAKE SURE ANIMATION HAPPENS ONLY IF NOT
+		 * CONFUSED, ETC.
+		 */
+		
+        // ANIMATE!!
+        x.attack();
+        while(x.animationPlaying()) {
+            sleep(10);
+        }
+        //sleep(1000);
+        
+        // END ANIMATE!!
+		
+		
+		
 
 		sleep(3000);
 		if (applyconfusion(x)) {
