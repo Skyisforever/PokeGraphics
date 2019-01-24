@@ -16,7 +16,7 @@ public class Platform {
 
 	public void define() {
 		try {
-			img = ImageIO.read(Platform.class.getResource("platform.png"));
+			img = ImageIO.read(getClass().getResource("platform.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

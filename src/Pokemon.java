@@ -58,31 +58,31 @@ public class Pokemon {
 		effect = new Effect(this, al);
 		if (name.equals("Pikachu")) {
 			try {
-				pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
+				pokemonimage = ImageIO.read(getClass().getResource("pika.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (name.equals("Bulbasaur")) {
 			try {
-				pokemonimage = ImageIO.read(Pokemon.class.getResource("bulbasaur.png"));
+				pokemonimage = ImageIO.read(getClass().getResource("bulbasaur.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (name.equals("Jigglypuff")) {
 			try {
-				pokemonimage = ImageIO.read(Pokemon.class.getResource("jigglypuff1.png"));
+				pokemonimage = ImageIO.read(getClass().getResource("jigglypuff1.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (name.equals("Greninja")) {
 			try {
-				pokemonimage = ImageIO.read(Pokemon.class.getResource("greninja2.png"));
+				pokemonimage = ImageIO.read(getClass().getResource("greninja2.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (name.equals("Psyduck")) {
 			try {
-				pokemonimage = ImageIO.read(Pokemon.class.getResource("psyduck.png"));
+				pokemonimage = ImageIO.read(getClass().getResource("psyduck.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
