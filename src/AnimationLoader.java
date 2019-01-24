@@ -7,7 +7,6 @@ import java.util.Hashtable;
 
 public class AnimationLoader
 {
-	Hashtable<String, String>					nametable = new Hashtable<String, String>();
 	Hashtable<String, ArrayList<AnimationData>>	data	  = new Hashtable<String, ArrayList<AnimationData>>();
 	
 	public AnimationLoader(URL url)
