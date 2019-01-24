@@ -41,7 +41,13 @@ public class AnimationLoader {
 		}
 	}
 
-	public float[] nextFrame(String name, int current_frame) {
+	public int getLastFrameNumber(String name) {
+		ArrayList<AnimationData> search = data.get(name);
+		int end = search.get(search.size() - 1).stop;
+		return end;
+	}
+
+	public float[] nextFrame(String name, int current_frame, Animator context) {
 		ArrayList<AnimationData> search = data.get(name);
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		for (AnimationData a : search) {
@@ -50,6 +56,9 @@ public class AnimationLoader {
 				deltas[1] = a.dy;
 				deltas[2] = a.angle;
 				return deltas;
+			}
+			if (current_frame == getLastFrameNumber(name)) {
+				context.cleanUp();
 			}
 		}
 		return deltas;

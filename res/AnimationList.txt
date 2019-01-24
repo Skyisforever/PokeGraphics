@@ -1,8 +1,12 @@
+#THIS IS A COMMENT
+#FORMAT:
+#AttackName STARTFRAME.STOPFRAME DX DY DT
+
 #Thunder
 Thunder 00.30 0  1 0
 Thunder 30.60 0 -1 0
 
 #QuickAttack and related
-QuickAttack 00.15  2 -2  .025
-QuickAttack 15.30 -2  2 -.025
+QuickAttack 00.15  2 -2  0.5
+QuickAttack 15.30 -2  2 -0.5
 

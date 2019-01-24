@@ -45,8 +45,6 @@ public class Enemy {
 	}
 
 	public void draw(Graphics g) {
-		// g.drawImage(image, x, y, null);
-
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(op.filter(image, null), x, y, null);
 	}

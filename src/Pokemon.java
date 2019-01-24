@@ -1,16 +1,9 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 
-public class Pokemon {
-	BufferedImage pokemonimage = null;
+public class Pokemon extends Animator {
 	String name;
 	ArrayList<String> type;
 	ArrayList<Attack> skills;
@@ -23,13 +16,9 @@ public class Pokemon {
 	Attack currentattack;
 	Player player;
 
-	private float x, y, angle;
 	private boolean opponent = false;
 	private String animationType;
 	public Effect effect = null;
-	private AnimationLoader al;
-	private AffineTransform tx;
-	private AffineTransformOp op;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
 			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player, AnimationLoader al) {
@@ -50,44 +39,22 @@ public class Pokemon {
 	public void define() {
 		if (name.equals("Pikachu")) {
 			System.out.println(currenthealth);
-			try {
-				pokemonimage = ImageIO.read(getClass().getResource("pika.png"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			setImage("pika.png");
 		} else if (name.equals("Bulbasaur")) {
-			try {
-				pokemonimage = ImageIO.read(getClass().getResource("bulbasaur.png"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			setImage("bulbasaur.png");
 		} else if (name.equals("Jigglypuff")) {
-			try {
-				pokemonimage = ImageIO.read(getClass().getResource("jigglypuff1.png"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			setImage("jigglypuff1.png");
 		} else if (name.equals("Greninja")) {
-			try {
-				pokemonimage = ImageIO.read(getClass().getResource("greninja2.png"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			setImage("greninja2.png");
 		} else if (name.equals("Psyduck")) {
-			try {
-				pokemonimage = ImageIO.read(getClass().getResource("psyduck.png"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			setImage("psyduck.png");
 		}
 
 		if (player.name.equals("opponent")) {
-			x = 450;
-			y = 35;
+			setPos(450, 35);
 			opponent = true;
 		} else {
-			x = 130;
-			y = 245;
+			setPos(130, 245);
 		}
 		angle = 0;
 		animationType = "";
@@ -99,33 +66,24 @@ public class Pokemon {
 
 	public void attack() {
 		animationType = "attack";
+		animate = true;
 	}
 
 	public void faint() {
 		animationType = "faint";
 	}
 
-	public boolean animationPlaying() {
-		return animationType.equals("");
-	}
-
-	int frame_counter = 0;
-
+	@Override
 	public void cleanUp() {
+		animate = false;
 		animationType = "";
 		frame_counter = 0;
 	}
 
-	public void doRotation() {
-		double locationX = pokemonimage.getWidth() / 2;
-		double locationY = pokemonimage.getHeight() / 2;
-		tx = AffineTransform.getRotateInstance(angle, locationX, locationY);
-		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-	}
-
 	public void physics() {
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
-		if (!animationType.equals("")) {
+		if (animate) {
+			animate = true;
 			switch (animationType) {
 			case "attack":
 				switch (currentattack.name) {
@@ -136,21 +94,14 @@ public class Pokemon {
 				case "Tackle":
 				case "QuickAttack":
 				case "Nuzzle":
-					if (frame_counter >= 30) {
-						cleanUp();
-						break;
-					} else {
-						// we don't use currentattack.name
-						// because many attacks use this
-						deltas = al.nextFrame("QuickAttack", frame_counter);
-					}
+					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
 				case "Icebeam":
 				case "Nightslash":
 				case "Confusion":
 				case "Leechseed":
 				case "Thunder":
-					effect.set(currentattack.name);
+					effect.set(currentattack.name, this);
 					break;
 				default:
 					cleanUp();
@@ -159,8 +110,14 @@ public class Pokemon {
 
 			case "faint":
 				// faint animation here
+			default:
+				cleanUp();
 			}
 
+			if (!animate) {
+				return;
+			}
+			
 			frame_counter++;
 
 			if (opponent) {
@@ -179,15 +136,9 @@ public class Pokemon {
 
 	}
 
-	public void effectDone() {
-		animationType = "";
-	}
-
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(op.filter(pokemonimage, null), (int) x, (int) y, null);
-		// g.drawImage(pokemonimage, (int) x, (int) y, null);
-
+		g2d.drawImage(img, tx, null);
 	}
 
 }
