@@ -136,22 +136,14 @@ public class Pokemon {
 						dy = 1;
 					}
 					break;
+				case "Icebeam":
+				case "Nightslash":
+				case "Confusion":
+				case "Leechseed":
 				case "Thunder":
 					effect.set(currentattack.name);
 					// do some other animation
 					break;
-				case "Leechseed":
-					effect.set(currentattack.name);
-					break;
-				case "Confusion":
-					effect.set(currentattack.name);
-					break;
-				case "Nightslash":
-					effect.set(currentattack.name);
-					break;
-				case "Icebeam":
-					effect.set(currentattack.name);
-					break;	
 				default:
 					animationType = "";
 				} // end switch(currentattack.name)
