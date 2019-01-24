@@ -1,0 +1,8 @@
+#Thunder
+Thunder 00.30 0 1
+Thunder 30.60 0 -1
+
+#QuickAttack and related
+QuickAttack 00.15 1 -1
+QuickAttack 15.30 -1 1
+

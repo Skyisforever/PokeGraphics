@@ -7,10 +7,10 @@ public class Room {
 	public Player opponent;
 
 	private Background bg;
-	private Enemy enemy;
 	private Platform pt2;
 	private Platform pt1;
 	private Hud hud;
+	private AnimationLoader al;
 
 	public Game game;
 	private Thread tGame;
@@ -26,6 +26,8 @@ public class Room {
 	}
 
 	private void define() {
+		
+		al = new AnimationLoader(getClass().getResource("AnimationList.txt"));
 
 		player = initPlayer("player");
 		opponent = initPlayer("opponent");
@@ -34,7 +36,6 @@ public class Room {
 		addItem(player, new Item("healingpotion", 1));
 
 		bg = new Background(this);
-		enemy = new Enemy();
 		pt1 = new Platform(120,350);
 		pt2=new Platform(425,140);
 		hud = new Hud(this);
@@ -48,7 +49,7 @@ public class Room {
 
 	private Player initPlayer(String name) {
 		ArrayList<Item> items = new ArrayList<Item>();
-		Player player = new Player(name, items);
+		Player player = new Player(name, items, al);
 		player.pokemons = new ArrayList<Pokemon>();
 		player.GeneratePokemon(player.pokemons);
 		player.currentpokemon = player.pokemons.get(0);

@@ -27,9 +27,10 @@ public class Pokemon {
 	private boolean opponent = false;
 	private String animationType;
 	public Effect effect = null;
+	private AnimationLoader al;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
-			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player) {
+			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player, AnimationLoader al) {
 		this.name = name;
 		this.health = health;
 		this.attack = attack;
@@ -39,7 +40,8 @@ public class Pokemon {
 		this.type = type;
 		this.statuses = statuses;
 		this.player = player;
-		currenthealth = health;
+		this.currenthealth = health;
+		this.al = al;
 		define();
 	}
 
@@ -53,21 +55,13 @@ public class Pokemon {
 			y = 245;
 		}
 		animationType = "";
-		effect = new Effect(this);
+		effect = new Effect(this, al);
 		if (name.equals("Pikachu")) {
 			try {
 				pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//		 if(name.equals("Pikachu")&&player.currentpokemon.currenthealth<=player.currentpokemon.health*.3) {
-//			 try {
-//					pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			 
-//		 }
 		} else if (name.equals("Bulbasaur")) {
 			try {
 				pokemonimage = ImageIO.read(Pokemon.class.getResource("bulbasaur.png"));
@@ -109,10 +103,14 @@ public class Pokemon {
 	}
 
 	int frame_counter = 0;
+	
+	public void cleanUp() {
+		animationType = "";
+		frame_counter = 0;
+	}
 
 	public void physics() {
-		int dx = 0;
-		int dy = 0;
+		int[] deltas = {0, 0};
 		if (!animationType.equals("")) {
 			switch (animationType) {
 			case "attack":
@@ -125,35 +123,23 @@ public class Pokemon {
 				case "QuickAttack":
 				case "Nuzzle":
 					if (frame_counter >= 30) {
-						animationType = "";
-						frame_counter = 0;
+						cleanUp();
 						break;
-					} else if (frame_counter < 15) {
-						dx = 1;
-						dy = -1;
-					} else if (frame_counter >= 15) {
-						dx = -1;
-						dy = 1;
+					} else {
+						// we don't use currentattack.name
+						// because many attacks use this
+						deltas = al.nextFrame("QuickAttack", frame_counter);
 					}
 					break;
-				case "Thunder":
-					effect.set(currentattack.name);
-					// do some other animation
-					break;
-				case "Leechseed":
-					effect.set(currentattack.name);
-					break;
-				case "Confusion":
-					effect.set(currentattack.name);
-					break;
-				case "Nightslash":
-					effect.set(currentattack.name);
-					break;
 				case "Icebeam":
+				case "Nightslash":
+				case "Confusion":
+				case "Leechseed":
+				case "Thunder":
 					effect.set(currentattack.name);
 					break;	
 				default:
-					animationType = "";
+					cleanUp();
 				} // end switch(currentattack.name)
 				break;
 
@@ -164,12 +150,12 @@ public class Pokemon {
 			frame_counter++;
 
 			if (opponent) {
-				dx *= -1;
-				dy *= -1;
+				deltas[0] *= -1;
+				deltas[1] *= -1;
 			}
 
-			x += dx;
-			y += dy;
+			x += deltas[0];
+			y += deltas[1];
 		}
 
 	}

@@ -11,10 +11,13 @@ public class Player {
 	Pokemon currentpokemon;
 	Item currentitem;
 	ArrayList<Item> items;
+	
+	private AnimationLoader al;
 
-	public Player(String name, ArrayList<Item> items) {
+	public Player(String name, ArrayList<Item> items, AnimationLoader al) {
 		this.name = name;
 		this.items = items;
+		this.al = al;
 	}
 
 	public void GeneratePokemon(ArrayList<Pokemon> input) {
@@ -47,7 +50,7 @@ public class Player {
 					skills.add(new Attack(Double.parseDouble(x[i + 3]), x[i], x[i + 1], new Status(x[i + 2], 0)));
 					i = i + 4;
 				}
-				Pokemon y = new Pokemon(x[0], types, health, attack, defense, speed, skills, new ArrayList<Status>(), this);
+				Pokemon y = new Pokemon(x[0], types, health, attack, defense, speed, skills, new ArrayList<Status>(), this, al);
 				listofpokemon.add(y);
 			}
 		} catch (Exception e) {

@@ -10,44 +10,55 @@ public class Effect {
 	private float x, y;
 	private boolean drawEffect = false;
 	private Pokemon p;
+	private AnimationLoader al;
 	
+	private boolean imgLoaded = false;
 	public boolean darkenScreen = false;
 	
-	public Effect(Pokemon p) {
+	public Effect(Pokemon p, AnimationLoader al) {
 		this.p = p;
+		this.al = al;
+	}
+	
+	private void loadImage(String fileName) {
+		if (!imgLoaded) {
+    		try {
+    			img = ImageIO.read(Effect.class.getResource(fileName));
+    			imgLoaded = true;
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+		}
+	}
+	
+	private void cleanUp() {
+		frame_counter = 0;
+		drawEffect = false;
+		darkenScreen = false;
+		imgLoaded = false;
+		p.effectDone();
 	}
 	
 	private int frame_counter = 0;
 	public void set(String name) {
-		int dx = 0;
-		int dy = 0;
+		int[] deltas = {0, 0};
 		drawEffect = true;
+		
 		switch (name) {
 		case "Thunder":
 			darkenScreen = true;
-			try {
-				img = ImageIO.read(Effect.class.getResource("lightning2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			loadImage("lightning2.png");
+			
 			if (frame_counter >= 60) {
-				frame_counter = 0;
-				drawEffect = false;
-				darkenScreen = false;
-				p.effectDone();
+				cleanUp();
 				return;
 			}
 			if (frame_counter == 0) {
 				x = 475;
-				y = -100;
-				dx = 0;
-				dy = 0;
-			} else if (frame_counter >= 30 && frame_counter < 60) {
-				dx = 0;
-				dy = -1;
-			} else if (frame_counter < 30 || frame_counter >= 60) {
-				dx = 0;
-				dy = 1;
+				y = -100;				
+			} else {
+				// in animation
+				deltas = al.nextFrame(name, frame_counter);
 			}
 			break;
 		}
@@ -63,8 +74,8 @@ public class Effect {
 		}
 		*/
 
-		x += dx;
-		y += dy;
+		x += deltas[0];
+		y += deltas[1];
 		
 	}
 	
