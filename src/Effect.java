@@ -46,8 +46,19 @@ public class Effect extends Animator {
 			}
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
+		case "Confusion":
+			loadImage("confusion.png");
+			if (frame_counter == 0) {
+				if (Game.opponentsattack)
+					setPos(155, 250);
+				else
+					setPos(460, 50);
+			}
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
 		}
 		
+			
 		if (!animate) {
 			a.cleanUp();
 			return;

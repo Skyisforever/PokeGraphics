@@ -38,7 +38,7 @@ public class Pokemon extends Animator {
 
 	public void define() {
 		if (name.equals("Pikachu")) {
-			System.out.println(currenthealth);
+			//System.out.println(currenthealth);
 			setImage("pika.png");
 		} else if (name.equals("Bulbasaur")) {
 			setImage("bulbasaur.png");
