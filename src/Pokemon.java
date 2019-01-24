@@ -57,6 +57,7 @@ public class Pokemon {
 		animationType = "";
 		effect = new Effect(this, al);
 		if (name.equals("Pikachu")) {
+			System.out.println(currenthealth);
 			try {
 				pokemonimage = ImageIO.read(getClass().getResource("pika.png"));
 			} catch (Exception e) {

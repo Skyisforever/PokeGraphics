@@ -8,7 +8,7 @@ public class Game implements Runnable {
 	private boolean mustswap = false;
 	// SEE CODE FOR USAGE
 	private boolean go = false;
-
+	public static boolean opponentsattack=false;;
 	// CLICK COORDINATES
 	private int x, y;
 
@@ -211,7 +211,7 @@ public class Game implements Runnable {
 	private void Opponentinput() {
 		Random rand = new Random();
 		int number = rand.nextInt(4);
-		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(number);
+		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(0);
 	}
 
 	// METHODS RELATED TO ATTACK
@@ -257,7 +257,9 @@ public class Game implements Runnable {
 				return;
 				
 			}
+			opponentsattack=true;
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
+			opponentsattack=false;
 			if (player.currentpokemon.currenthealth <= 0) {
 				mustswap = true;
 				hud.set(player.currentpokemon.name + " has fainted!");
@@ -271,7 +273,9 @@ public class Game implements Runnable {
 			}
 
 		} else if (player.currentpokemon.speed < opponent.currentpokemon.speed) {
+			opponentsattack=true;
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
+			opponentsattack=false;
 			if (player.currentpokemon.currenthealth <= 0) {
 				mustswap = true;
 				hud.set(player.currentpokemon.name + " has fainted!");

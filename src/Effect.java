@@ -53,10 +53,14 @@ public class Effect {
 				cleanUp();
 				return;
 			}
-			if (frame_counter == 0) {
+			if(frame_counter==0 && Game.opponentsattack) {
+				x=155;
+				y=110;
+			}
+			if (frame_counter == 0 && !Game.opponentsattack) {
 				x = 475;
 				y = -100;				
-			} else {
+			} else  {
 				// in animation
 				deltas = al.nextFrame(name, frame_counter);
 			}
