@@ -23,7 +23,6 @@ public class Pokemon {
 	Attack currentattack;
 	Player player;
 
-	
 	private float x, y;
 	private boolean opponent = false;
 	private String animationType;
@@ -47,49 +46,53 @@ public class Pokemon {
 	public void define() {
 		if (player.name.equals("opponent")) {
 			x = 450;
-			y = 45;
+			y = 35;
 			opponent = true;
 		} else {
-			x = 20;
-			y = 300;
+			x = 130;
+			y = 245;
 		}
 		animationType = "";
 		effect = new Effect(this);
-		// if (name.equals("Pikachu")) {
-		try {
-			pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (name.equals("Pikachu")) {
+			try {
+				pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+//		 if(name.equals("Pikachu")&&player.currentpokemon.currenthealth<=player.currentpokemon.health*.3) {
+//			 try {
+//					pokemonimage = ImageIO.read(Pokemon.class.getResource("pika.png"));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			 
+//		 }
+		} else if (name.equals("Bulbasaur")) {
+			try {
+				pokemonimage = ImageIO.read(Pokemon.class.getResource("bulbasaur.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (name.equals("Jigglypuff")) {
+			try {
+				pokemonimage = ImageIO.read(Pokemon.class.getResource("jigglypuff1.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (name.equals("Greninja")) {
+			try {
+				pokemonimage = ImageIO.read(Pokemon.class.getResource("greninja2.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (name.equals("Psyduck")) {
+			try {
+				pokemonimage = ImageIO.read(Pokemon.class.getResource("psyduck.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		// }
-		// else if (name.equals("bulbasaur")) {
-		// try {
-		// pokemonimage=ImageIO.read(new File("bulbasaur.png"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
-		// else if (name.equals("jigglypuff")) {
-		// try {
-		// pokemonimage=ImageIO.read(new File("jigglypuff.png"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
-		// else if (name.equals("greninja")) {
-		// try {
-		// pokemonimage=ImageIO.read(new File("greninja.png"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
-		// else if (name.equals("psyduck")) {
-		// try {
-		// pokemonimage=ImageIO.read(new File("psyduck.png"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
 
 	}
 
@@ -106,6 +109,7 @@ public class Pokemon {
 	}
 
 	int frame_counter = 0;
+
 	public void physics() {
 		int dx = 0;
 		int dy = 0;
@@ -113,6 +117,11 @@ public class Pokemon {
 			switch (animationType) {
 			case "attack":
 				switch (currentattack.name) {
+				case "Scratch":
+				case "GyroBall":
+				case "BrickBreak":
+				case "WakeupSlap":
+				case "Tackle":
 				case "QuickAttack":
 				case "Nuzzle":
 					if (frame_counter >= 30) {
@@ -131,6 +140,18 @@ public class Pokemon {
 					effect.set(currentattack.name);
 					// do some other animation
 					break;
+				case "Leechseed":
+					effect.set(currentattack.name);
+					break;
+				case "Confusion":
+					effect.set(currentattack.name);
+					break;
+				case "Nightslash":
+					effect.set(currentattack.name);
+					break;
+				case "Icebeam":
+					effect.set(currentattack.name);
+					break;	
 				default:
 					animationType = "";
 				} // end switch(currentattack.name)
@@ -152,7 +173,7 @@ public class Pokemon {
 		}
 
 	}
-	
+
 	public void effectDone() {
 		animationType = "";
 	}
@@ -161,7 +182,7 @@ public class Pokemon {
 		// Graphics2D g2d = (Graphics2D) g;
 		// g2d.drawImage(op.filter(pokemonimage, null), 400, 600, null);
 		g.drawImage(pokemonimage, (int) x, (int) y, null);
-		
+
 	}
 
 }

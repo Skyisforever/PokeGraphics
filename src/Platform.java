@@ -7,8 +7,10 @@ import javax.imageio.ImageIO;
 
 public class Platform {
 	BufferedImage img = null;
-
-	public Platform() {
+	private int x, y;
+	public Platform(int x, int y) {
+		this.x=x;
+		this.y=y;
 		define();
 	}
 
@@ -21,6 +23,6 @@ public class Platform {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(img, 425, 150, null);
+		g.drawImage(img, x, y, null);
 	}
 }

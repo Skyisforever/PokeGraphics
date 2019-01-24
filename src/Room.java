@@ -8,7 +8,8 @@ public class Room {
 
 	private Background bg;
 	private Enemy enemy;
-	private Platform pt;
+	private Platform pt2;
+	private Platform pt1;
 	private Hud hud;
 
 	public Game game;
@@ -34,7 +35,8 @@ public class Room {
 
 		bg = new Background(this);
 		enemy = new Enemy();
-		pt = new Platform();
+		pt1 = new Platform(120,350);
+		pt2=new Platform(425,140);
 		hud = new Hud(this);
 		
 		Screen.ms.setHud(hud);
@@ -58,7 +60,8 @@ public class Room {
 	}
 
 	public void draw(Graphics g) {
-		pt.draw(g);
+		pt1.draw(g);
+		pt2.draw(g);
 	    player.draw(g);
 	    opponent.draw(g);
 		bg.draw(g);
