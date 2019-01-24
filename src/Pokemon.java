@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,7 +11,6 @@ import javax.imageio.ImageIO;
 
 public class Pokemon {
 	BufferedImage pokemonimage = null;
-	AffineTransformOp op;
 	String name;
 	ArrayList<String> type;
 	ArrayList<Attack> skills;
@@ -23,11 +23,13 @@ public class Pokemon {
 	Attack currentattack;
 	Player player;
 
-	private float x, y;
+	private float x, y, angle;
 	private boolean opponent = false;
 	private String animationType;
 	public Effect effect = null;
 	private AnimationLoader al;
+	private AffineTransform tx;
+	private AffineTransformOp op;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
 			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player, AnimationLoader al) {
@@ -46,16 +48,6 @@ public class Pokemon {
 	}
 
 	public void define() {
-		if (player.name.equals("opponent")) {
-			x = 450;
-			y = 35;
-			opponent = true;
-		} else {
-			x = 130;
-			y = 245;
-		}
-		animationType = "";
-		effect = new Effect(this, al);
 		if (name.equals("Pikachu")) {
 			System.out.println(currenthealth);
 			try {
@@ -89,6 +81,20 @@ public class Pokemon {
 			}
 		}
 
+		if (player.name.equals("opponent")) {
+			x = 450;
+			y = 35;
+			opponent = true;
+		} else {
+			x = 130;
+			y = 245;
+		}
+		angle = 0;
+		animationType = "";
+		effect = new Effect(this, al);
+
+		doRotation();
+
 	}
 
 	public void attack() {
@@ -104,14 +110,21 @@ public class Pokemon {
 	}
 
 	int frame_counter = 0;
-	
+
 	public void cleanUp() {
 		animationType = "";
 		frame_counter = 0;
 	}
 
+	public void doRotation() {
+		double locationX = pokemonimage.getWidth() / 2;
+		double locationY = pokemonimage.getHeight() / 2;
+		tx = AffineTransform.getRotateInstance(angle, locationX, locationY);
+		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+	}
+
 	public void physics() {
-		int[] deltas = {0, 0};
+		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		if (!animationType.equals("")) {
 			switch (animationType) {
 			case "attack":
@@ -138,7 +151,7 @@ public class Pokemon {
 				case "Leechseed":
 				case "Thunder":
 					effect.set(currentattack.name);
-					break;	
+					break;
 				default:
 					cleanUp();
 				} // end switch(currentattack.name)
@@ -153,10 +166,15 @@ public class Pokemon {
 			if (opponent) {
 				deltas[0] *= -1;
 				deltas[1] *= -1;
+				deltas[2] *= -1;
 			}
 
 			x += deltas[0];
 			y += deltas[1];
+			angle += deltas[2];
+
+			doRotation();
+
 		}
 
 	}
@@ -166,9 +184,9 @@ public class Pokemon {
 	}
 
 	public void draw(Graphics g) {
-		// Graphics2D g2d = (Graphics2D) g;
-		// g2d.drawImage(op.filter(pokemonimage, null), 400, 600, null);
-		g.drawImage(pokemonimage, (int) x, (int) y, null);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawImage(op.filter(pokemonimage, null), (int) x, (int) y, null);
+		// g.drawImage(pokemonimage, (int) x, (int) y, null);
 
 	}
 
