@@ -1,15 +1,20 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
-public class Screen extends JPanel implements Runnable {
+public class Screen extends JPanel implements Runnable, ActionListener {
 	private Thread thread = new Thread(this);
 	private Room room = null;
 	public static MouseHandle ms = new MouseHandle();
 
 	boolean defined = false;
+	
+	private Timer timer = new Timer(10, this);
 
 	public Screen() {
 		thread.start();
@@ -18,6 +23,7 @@ public class Screen extends JPanel implements Runnable {
 	public void define() {
 		room = new Room();
 		addMouseListener(ms);
+		timer.start();
 		defined = true;
 	}
 
@@ -33,7 +39,6 @@ public class Screen extends JPanel implements Runnable {
 	public void run() {
 		define();
 		while (true) {
-			repaint();
 			room.physics();
 			try {
 				Thread.sleep(10);
@@ -41,6 +46,12 @@ public class Screen extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 
+		}
+	}
+	
+	public void actionPerformed(ActionEvent ev) {
+		if (ev.getSource()==timer) {
+			repaint();
 		}
 	}
 }
