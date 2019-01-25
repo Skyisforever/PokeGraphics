@@ -79,6 +79,11 @@ public class Pokemon extends Animator {
 	public void faint() {
 		animationType = "faint";
 	}
+	
+	public void hit() {
+		animationType = "hit";
+		animate = true;
+	}
 
 	@Override
 	public void cleanUp() {
@@ -105,7 +110,6 @@ public class Pokemon extends Animator {
 		}
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		if (animate) {
-			animate = true;
 			switch (animationType) {
 			case "attack":
 				switch (currentattack.name) {
@@ -121,9 +125,6 @@ public class Pokemon extends Animator {
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
 				
-//					effect.darkenScreen=true;
-//					deltas = al.nextFrame("QuickAttack", frame_counter, this);
-//					break;
 				case "Icebeam":
 				case "Confusion":
 				case "Leechseed":
@@ -137,6 +138,10 @@ public class Pokemon extends Animator {
 
 			case "faint":
 				// faint animation here
+				break;
+			case "hit":
+				deltas = al.nextFrame("hit", frame_counter, this);
+				break;
 			default:
 				cleanUp();
 				

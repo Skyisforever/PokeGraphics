@@ -356,6 +356,14 @@ public class Game implements Runnable {
         while(x.animationPlaying()) {
             sleep(10);
         }
+        
+        sleep(250);
+        
+        y.hit();
+        while(y.animationPlaying()) {
+        	sleep(10);
+        }
+        
         sleep(1000);
         
         // END ANIMATE!!
@@ -374,7 +382,7 @@ public class Game implements Runnable {
 		}
 		
 		
-		sleep(2500);
+		sleep(2000);
 		if (applyconfusion(x)) {
 			Random h=new Random();
 			int b=h.nextInt(100);
