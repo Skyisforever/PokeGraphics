@@ -356,14 +356,28 @@ public class Game implements Runnable {
         while(x.animationPlaying()) {
             sleep(10);
         }
-        //sleep(1000);
+        sleep(1000);
         
         // END ANIMATE!!
+        for (int i = 0; i < finaldamage; ++i) {
+        	y.currenthealth -= 1;
+        	sleep(100);
+        }
+		if (y.currenthealth<=0) {
+			y.currenthealth=0;
+		}
+		
+		if (attack.name.equals("Leechseed")) {
+			double leechadd = Math.round(finaldamage * .4);
+			System.out.println(leechadd);
+			for (int i = 0; i < leechadd; ++i) {
+	        	x.currenthealth += 1;
+	        	sleep(100);
+	        }
+		}
 		
 		
-		
-
-		sleep(3000);
+		sleep(2500);
 		if (applyconfusion(x)) {
 			Random h=new Random();
 			int b=h.nextInt(100);
@@ -470,13 +484,7 @@ public class Game implements Runnable {
 				sleep(1000);
 			}
 		}
-		y.currenthealth = y.currenthealth - finaldamage;
-		if (y.currenthealth<=0) {
-			y.currenthealth=0;
-		}
-		if (attack.name.equals("LeechSeed")) {
-			x.currenthealth = x.currenthealth + Math.round(finaldamage * .4);
-		}
+
 	}
 //	private void doAttack() {
 //		String pokemon = player.currentpokemon.name;
