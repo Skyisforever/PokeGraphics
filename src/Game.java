@@ -120,7 +120,7 @@ public class Game implements Runnable {
 			while (hud.isTyping()) {
 				sleep(10);
 			}
-			sleep(10000);
+			sleep(20000);
 			System.exit(0);
 		}
 		if ((x >= 207 && x <= 307) && (y >= 483 && y <= 508)) {
@@ -336,6 +336,9 @@ public class Game implements Runnable {
 			sleep(1000);
 			wakeup(y);
 			y.currenthealth=y.currenthealth-finaldamage;
+			if (y.currenthealth<=0) {
+				y.currenthealth=0;
+			}
 			return;
 			}
 		}
@@ -468,6 +471,9 @@ public class Game implements Runnable {
 			}
 		}
 		y.currenthealth = y.currenthealth - finaldamage;
+		if (y.currenthealth<=0) {
+			y.currenthealth=0;
+		}
 		if (attack.name.equals("LeechSeed")) {
 			x.currenthealth = x.currenthealth + Math.round(finaldamage * .4);
 		}
@@ -525,7 +531,7 @@ public class Game implements Runnable {
 			while (hud.isTyping()) {
 				sleep(10);
 			}
-			sleep(1000);
+			sleep(20000);
 			System.exit(0);
 		}
 	}
