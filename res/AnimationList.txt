@@ -18,3 +18,8 @@ Leechseed 00.38  10 -3  0
 
 #Icebeam
 Icebeam 00.33 10 -4 0
+
+#Hit
+hit 00.05 -1  1 0
+hit 05.15  1 -1 0
+hit 15.20 -1  1 0
