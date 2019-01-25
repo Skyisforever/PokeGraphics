@@ -359,18 +359,15 @@ public class Game implements Runnable {
         sleep(1000);
         
         // END ANIMATE!!
-        for (int i = 0; i < finaldamage; ++i) {
+        for (int i = 0; y.currenthealth > 0 && i < finaldamage; ++i) {
         	y.currenthealth -= 1;
         	sleep(100);
         }
-		if (y.currenthealth<=0) {
-			y.currenthealth=0;
-		}
 		
 		if (attack.name.equals("Leechseed")) {
 			double leechadd = Math.round(finaldamage * .4);
 			System.out.println(leechadd);
-			for (int i = 0; i < leechadd; ++i) {
+			for (int i = 0; x.currenthealth < x.health && i < leechadd; ++i) {
 	        	x.currenthealth += 1;
 	        	sleep(100);
 	        }
