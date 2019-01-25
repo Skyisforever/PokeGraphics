@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 public class Effect extends Animator {
 	private Pokemon p;
 	private AnimationLoader al;
-
+	private boolean leech=false;
 	private boolean imgLoaded = false;
 	public boolean darkenScreen = false;
 
@@ -57,6 +57,7 @@ public class Effect extends Animator {
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
 		case "Leechseed":
+			leech=true;
 			loadImage("leechseed.png");
 			if (frame_counter == 0) {
 				if (Game.opponentsattack)
@@ -81,6 +82,12 @@ public class Effect extends Animator {
 		/*
 		  if (opponent) { dx *= -1; dy *= -1; }
 		 */
+		if (Game.opponentsattack && leech==true ) {
+			deltas[0] *= -.7;
+			deltas[1] *= -2;
+			deltas[2] *= -1;
+			leech=false;
+		}
 		x += deltas[0];
 		y += deltas[1];
 		angle += deltas[2];

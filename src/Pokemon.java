@@ -94,6 +94,7 @@ public class Pokemon extends Animator {
 				case "Tackle":
 				case "QuickAttack":
 				case "Nuzzle":
+				case "Pound":
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
 				case "Icebeam":
