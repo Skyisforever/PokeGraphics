@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 public class Effect extends Animator {
 	private Pokemon p;
 	private AnimationLoader al;
-	private boolean leech=false;
+	private boolean ice,leech=false;
 	private boolean imgLoaded = false;
 	public boolean darkenScreen = false;
 
@@ -26,6 +26,8 @@ public class Effect extends Animator {
 		animate = false;
 		darkenScreen = false;
 		imgLoaded = false;
+		ice=false;
+		leech=false;
 	}
 
 	private int frame_counter = 0;
@@ -67,6 +69,21 @@ public class Effect extends Animator {
 		}
 		deltas = al.nextFrame(name, frame_counter, this);
 		break;
+		case "Icebeam":
+			ice=true;
+			loadImage("icebeam.png");
+			if (frame_counter == 0) {
+				if (Game.opponentsattack)
+					setPos(450, 35);
+			else
+				setPos(140, 200);
+		}
+		deltas = al.nextFrame(name, frame_counter, this);
+		break;
+//		case "Nightslash":
+//			darkenScreen=true;
+//			deltas = al.nextFrame("QuickAttack", frame_counter, this);
+//			break;
 		}
 		
 			
@@ -82,11 +99,10 @@ public class Effect extends Animator {
 		/*
 		  if (opponent) { dx *= -1; dy *= -1; }
 		 */
-		if (Game.opponentsattack && leech==true ) {
+		if (Game.opponentsattack && ( leech==true|| ice==true) ) {
 			deltas[0] *= -.7;
 			deltas[1] *= -2;
 			deltas[2] *= -1;
-			leech=false;
 		}
 		x += deltas[0];
 		y += deltas[1];

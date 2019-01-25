@@ -38,7 +38,6 @@ public class Pokemon extends Animator {
 
 	public void define() {
 		if (name.equals("Pikachu")) {
-			//System.out.println(currenthealth);
 			setImage("pika.png");
 		} else if (name.equals("Bulbasaur")) {
 			setImage("bulbasaur.png");
@@ -81,6 +80,21 @@ public class Pokemon extends Animator {
 	}
 
 	public void physics() {
+		if (name.equals("Pikachu") && currenthealth<=health*.5 ) {
+			setImage("pikachudistressed.png");
+		}
+		if (name.equals("Bulbasaur") && currenthealth<=health*.5 ) {
+			setImage("bulbasaurdistressed.png");
+		}
+		if (name.equals("Jigglypuff") && currenthealth<=health*.5 ) {
+			setImage("jigglypuffdistressed.png");
+		}
+		if (name.equals("Greninja") && currenthealth<=0 ) {
+			setImage("greninjadistressed.png");
+		}
+		if (name.equals("Psyduck") && currenthealth<=health*.5 ) {
+			setImage("psyduckdistressed.png");
+		}
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		if (animate) {
 			animate = true;
@@ -94,11 +108,15 @@ public class Pokemon extends Animator {
 				case "Tackle":
 				case "QuickAttack":
 				case "Nuzzle":
+				case "Nightslash":
 				case "Pound":
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
+				
+//					effect.darkenScreen=true;
+//					deltas = al.nextFrame("QuickAttack", frame_counter, this);
+//					break;
 				case "Icebeam":
-				case "Nightslash":
 				case "Confusion":
 				case "Leechseed":
 				case "Thunder":
@@ -113,6 +131,7 @@ public class Pokemon extends Animator {
 				// faint animation here
 			default:
 				cleanUp();
+				
 			}
 
 			if (!animate) {
@@ -132,7 +151,6 @@ public class Pokemon extends Animator {
 			angle += deltas[2];
 
 			doRotation();
-
 		}
 
 	}
