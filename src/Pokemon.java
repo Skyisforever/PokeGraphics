@@ -125,7 +125,7 @@ public class Pokemon extends Animator {
 				deltas[1] *= -1;
 				deltas[2] *= -1;
 			}
-
+			
 			x += deltas[0];
 			y += deltas[1];
 			angle += deltas[2];

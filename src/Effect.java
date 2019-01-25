@@ -56,6 +56,16 @@ public class Effect extends Animator {
 			}
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
+		case "Leechseed":
+			loadImage("leechseed.png");
+			if (frame_counter == 0) {
+				if (Game.opponentsattack)
+					setPos(450, 35);
+			else
+				setPos(140, 200);
+		}
+		deltas = al.nextFrame(name, frame_counter, this);
+		break;
 		}
 		
 			
@@ -69,9 +79,8 @@ public class Effect extends Animator {
 		// need to change this, possibly just mirror
 		// or done by-attack-name basis
 		/*
-		 * if (opponent) { dx *= -1; dy *= -1; }
+		  if (opponent) { dx *= -1; dy *= -1; }
 		 */
-
 		x += deltas[0];
 		y += deltas[1];
 		angle += deltas[2];

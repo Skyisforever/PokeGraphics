@@ -12,3 +12,7 @@ QuickAttack 15.30 -2  2 -0.5
 
 #Confusion 
 Confusion 00.999 0 0 0.25
+
+#Leechseed
+Leechseed 00.45  7 -3  0
+
