@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 public class Effect extends Animator {
 	private Pokemon p;
 	private AnimationLoader al;
-	private boolean ice,leech=false;
 	private boolean imgLoaded = false;
 	public boolean darkenScreen = false;
+	private float dxs, dys, dts;
 
 	public Effect(Pokemon p, AnimationLoader al) {
 		this.p = p;
@@ -26,8 +26,7 @@ public class Effect extends Animator {
 		animate = false;
 		darkenScreen = false;
 		imgLoaded = false;
-		ice=false;
-		leech=false;
+		dxs = dys = dts = 1;
 	}
 
 	private int frame_counter = 0;
@@ -46,6 +45,7 @@ public class Effect extends Animator {
 				else
 					setPos(475, -100);
 			}
+			
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
 		case "Confusion":
@@ -56,37 +56,46 @@ public class Effect extends Animator {
 				else
 					setPos(460, 50);
 			}
+			
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
 		case "Leechseed":
-			leech=true;
 			loadImage("leechseed.png");
 			if (frame_counter == 0) {
 				if (Game.opponentsattack)
 					setPos(450, 35);
-			else
-				setPos(140, 200);
-		}
-		deltas = al.nextFrame(name, frame_counter, this);
-		break;
+				else
+					setPos(140, 200);
+			}
+
+			dxs = -.7f;
+			dys = -2;
+			dts = -1;
+
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
 		case "Icebeam":
-			ice=true;
 			loadImage("icebeam.png");
 			if (frame_counter == 0) {
 				if (Game.opponentsattack)
 					setPos(450, 35);
-			else
-				setPos(140, 200);
-		}
-		deltas = al.nextFrame(name, frame_counter, this);
-		break;
-//		case "Nightslash":
-//			darkenScreen=true;
-//			deltas = al.nextFrame("QuickAttack", frame_counter, this);
-//			break;
-		}
-		
+				else
+					setPos(140, 200);
+			}
+
+			dxs = -.7f;
+			dys = -2;
+			dts = -1;
 			
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
+
+		default:
+			a.cleanUp();
+			return;
+
+		}
+
 		if (!animate) {
 			a.cleanUp();
 			return;
@@ -94,16 +103,12 @@ public class Effect extends Animator {
 
 		frame_counter++;
 
-		// need to change this, possibly just mirror
-		// or done by-attack-name basis
-		/*
-		  if (opponent) { dx *= -1; dy *= -1; }
-		 */
-		if (Game.opponentsattack && ( leech==true|| ice==true) ) {
-			deltas[0] *= -.7;
-			deltas[1] *= -2;
-			deltas[2] *= -1;
+		if (Game.opponentsattack) {
+			deltas[0] *= dxs;
+			deltas[1] *= dys;
+			deltas[2] *= dts;
 		}
+
 		x += deltas[0];
 		y += deltas[1];
 		angle += deltas[2];
