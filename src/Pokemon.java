@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Pokemon extends Animator {
 	private boolean opponent = false;
 	private String animationType;
 	public Effect effect = null;
+	private int baseX, baseY;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
 			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player, AnimationLoader al) {
@@ -51,10 +54,15 @@ public class Pokemon extends Animator {
 
 		if (player.name.equals("opponent")) {
 			setPos(450, 35);
+			baseX = 450;
+			baseY = 35;
 			opponent = true;
 		} else {
 			setPos(130, 245);
+			baseX = 130;
+			baseY = 245;
 		}
+		
 		angle = 0;
 		animationType = "";
 		effect = new Effect(this, al);
@@ -155,9 +163,17 @@ public class Pokemon extends Animator {
 
 	}
 
+
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(img, tx, null);
+		
+		g.setColor(currenthealth<=health*.5?Color.green:Color.orange);
+		g.fillRect(baseX-75,baseY+10,(int)(75 * currenthealth / health),10);
+		g.setColor(Color.black);
+		g.drawRect(baseX-75,baseY+10,75,10);
+		g.setFont(new Font("Courier", Font.BOLD, 13));
+		g.drawString(currenthealth + "/" + health, baseX-75, baseY+40);
 	}
 
 }
