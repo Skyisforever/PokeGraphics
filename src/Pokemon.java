@@ -110,7 +110,6 @@ public class Pokemon extends Animator {
 		}
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		if (animate) {
-			animate = true;
 			switch (animationType) {
 			case "attack":
 				switch (currentattack.name) {
