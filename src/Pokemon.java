@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-
 public class Pokemon extends Animator {
 	String name;
 	ArrayList<String> type;
@@ -40,17 +39,7 @@ public class Pokemon extends Animator {
 	}
 
 	public void define() {
-		if (name.equals("Pikachu")) {
-			setImage("pika.png");
-		} else if (name.equals("Bulbasaur")) {
-			setImage("bulbasaur.png");
-		} else if (name.equals("Jigglypuff")) {
-			setImage("jigglypuff1.png");
-		} else if (name.equals("Greninja")) {
-			setImage("greninja2.png");
-		} else if (name.equals("Psyduck")) {
-			setImage("psyduck.png");
-		}
+		setImage(name.toLowerCase() + ".png");
 
 		if (player.name.equals("opponent")) {
 			setPos(450, 35);
@@ -62,7 +51,7 @@ public class Pokemon extends Animator {
 			baseX = 130;
 			baseY = 245;
 		}
-		
+
 		angle = 0;
 		animationType = "";
 		effect = new Effect(this, al);
@@ -79,7 +68,7 @@ public class Pokemon extends Animator {
 	public void faint() {
 		animationType = "faint";
 	}
-	
+
 	public void hit() {
 		animationType = "hit";
 		animate = true;
@@ -92,22 +81,24 @@ public class Pokemon extends Animator {
 		frame_counter = 0;
 	}
 
+	boolean last_health_low = false;
+	boolean this_health_low = false;
+
 	public void physics() {
-		if (name.equals("Pikachu") && currenthealth<=health*.5 ) {
-			setImage("pikachudistressed.png");
+
+		this_health_low = (currenthealth <= health * .5);
+
+		if (this_health_low != last_health_low) {
+			String append = this_health_low ? "distressed" : "";
+			String filename = name.toLowerCase();
+			filename += append + ".png";
+
+			// add special cases here
+			// eg. if (name.equals("pewdiepie")) { filename = "sub2pewds.png"; }
+			setImage(filename);
+
 		}
-		if (name.equals("Bulbasaur") && currenthealth<=health*.5 ) {
-			setImage("bulbasaurdistressed.png");
-		}
-		if (name.equals("Jigglypuff") && currenthealth<=health*.5 ) {
-			setImage("jigglypuffdistressed.png");
-		}
-		if (name.equals("Greninja") && currenthealth<=0 ) {
-			setImage("greninjadistressed.png");
-		}
-		if (name.equals("Psyduck") && currenthealth<=health*.5 ) {
-			setImage("psyduckdistressed.png");
-		}
+
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
 		if (animate) {
 			switch (animationType) {
@@ -124,7 +115,7 @@ public class Pokemon extends Animator {
 				case "Pound":
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
-				
+
 				case "Icebeam":
 				case "Confusion":
 				case "Leechseed":
@@ -144,13 +135,13 @@ public class Pokemon extends Animator {
 				break;
 			default:
 				cleanUp();
-				
+
 			}
 
 			if (!animate) {
 				return;
 			}
-			
+
 			frame_counter++;
 
 			if (opponent) {
@@ -158,27 +149,28 @@ public class Pokemon extends Animator {
 				deltas[1] *= -1;
 				deltas[2] *= -1;
 			}
-			
+
 			x += deltas[0];
 			y += deltas[1];
 			angle += deltas[2];
 
 			doRotation();
+
+			last_health_low = this_health_low;
 		}
 
 	}
 
-
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(img, tx, null);
-		
-		g.setColor(currenthealth<=health*.5?Color.green:Color.orange);
-		g.fillRect(baseX-75,baseY+10,(int)(75 * currenthealth / health),10);
+
+		g.setColor(currenthealth <= health * .5 ? Color.green : Color.orange);
+		g.fillRect(baseX - 75, baseY + 10, (int) (75 * currenthealth / health), 10);
 		g.setColor(Color.black);
-		g.drawRect(baseX-75,baseY+10,75,10);
+		g.drawRect(baseX - 75, baseY + 10, 75, 10);
 		g.setFont(new Font("Courier", Font.BOLD, 13));
-		g.drawString(currenthealth + "/" + health, baseX-75, baseY+40);
+		g.drawString(currenthealth + "/" + health, baseX - 75, baseY + 40);
 	}
 
 }
