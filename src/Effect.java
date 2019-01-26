@@ -42,6 +42,9 @@ public class Effect extends Animator {
 					setPos(155, 110);
 				else
 					setPos(475, -100);
+				dxs = 1f;
+				dys = 1;
+				dts = 1;
 			}
 			
 			deltas = al.nextFrame(name, frame_counter, this);
