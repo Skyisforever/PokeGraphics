@@ -129,8 +129,10 @@ public class Pokemon extends Animator {
 				case "Icebeam":
 				case "Lick":
 				case "Confusion":
+				case "Sleep":
 				case "Leechseed":
 				case "Thunder":
+				case "Psyshock":
 					effect.set(currentattack.name, this);
 					break;
 				default:

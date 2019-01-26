@@ -26,3 +26,9 @@ hit 15.20 -1  1 0
 
 #Lick
 Lick 00.40 0 -2 0
+
+#Sleep
+Sleep 00.9999 0 0 0.15
+
+#Psyshock
+Psyshock 00.45 10 -4 0

@@ -103,10 +103,44 @@ public class Effect extends Animator {
 			dts = 1;
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
-
+		case "Sleep":;
+		if (frame_counter == 0) {
+			loadImage("singing.png");
+			if (Game.opponentsattack) {
+				setPos(430, 23);
+			}
+			else {
+				setPos(115, 220);
+			}
+		}
+		dxs = 1f;
+		dys = 1;
+		dts = 1;
+		deltas = al.nextFrame(name, frame_counter, this);
+		break;
 		default:
 			a.cleanUp();
 			return;
+		case "Psyshock":
+			
+			if (frame_counter == 0) {
+				if (Game.opponentsattack) {
+					loadImage("psyshockbackward.png");
+					setPos(450, 35);
+				}
+					
+				else {
+					loadImage("psyshockforward.png");
+					setPos(140, 200);
+				}
+			}
+
+			dxs = -.7f;
+			dys = -1;
+			dts = -1;
+			
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
 
 		}
 
