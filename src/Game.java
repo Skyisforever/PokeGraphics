@@ -210,13 +210,12 @@ public class Game implements Runnable {
 	private void Opponentinput() {
 		Random rand = new Random();
 		int number = rand.nextInt(4);
-		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(1);
+		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(number);
 	}
 
 	// METHODS RELATED TO ATTACK
 	// PLACEHOLDER
 	private void Battle() {
-		String nextState="pokemon";
 		if (player.currentpokemon.currentattack == null) {
 
 			Modifycurrenthealth(opponent.currentpokemon, player.currentpokemon, opponent.currentpokemon.currentattack);
