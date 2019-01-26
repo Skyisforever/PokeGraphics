@@ -108,10 +108,11 @@ public class Pokemon extends Animator {
 				switch (currentattack.name) {
 				case "Scratch":
 				case "GyroBall":
-				case "BrickBreak":
-				case "WakeupSlap":
+				case "Brickbreak":
+				case "Wakeupslap":
 				case "Tackle":
 				case "QuickAttack":
+				case "Electroball":
 				case "Nuzzle":
 				case "Nightslash":
 				case "Pound":
@@ -126,6 +127,7 @@ public class Pokemon extends Animator {
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
 				case "Icebeam":
+				case "Lick":
 				case "Confusion":
 				case "Leechseed":
 				case "Thunder":

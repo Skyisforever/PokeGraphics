@@ -87,6 +87,22 @@ public class Effect extends Animator {
 			
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
+		case "Lick":;
+			if (frame_counter == 0) {
+				if (Game.opponentsattack) {
+					loadImage("backlick.png");
+					setPos(130, 285);
+				}
+				else {
+					loadImage("forwardlick.png");
+					setPos(450, 70);
+				}
+			}
+			dxs = 1f;
+			dys = 1;
+			dts = 1;
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
 
 		default:
 			a.cleanUp();

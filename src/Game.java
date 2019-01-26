@@ -210,7 +210,7 @@ public class Game implements Runnable {
 	private void Opponentinput() {
 		Random rand = new Random();
 		int number = rand.nextInt(4);
-		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(3);
+		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(2);
 	}
 
 	// METHODS RELATED TO ATTACK
