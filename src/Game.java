@@ -199,7 +199,7 @@ public class Game implements Runnable {
 			player.currentpokemon.currentattack = player.currentpokemon.skills.get(2);
 			Battle();
 
-		} else if ((x >= 208 && x <= 268) && (y >= 484 && y <= 508)) {
+		} else if ((x >= 201 && x <= 331) && (y >= 480 && y <= 520)) {
 			player.currentpokemon.currentattack = player.currentpokemon.skills.get(3);
 			Battle();
 		} else {
