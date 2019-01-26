@@ -399,7 +399,7 @@ public class Game implements Runnable {
 				sleep(100);
 			}
 
-			sleep(2000);
+			sleep(250);
 			hud.set(x.name + " is confused and attacked himself!");
 			while (hud.isTyping()) {
 				sleep(10);
