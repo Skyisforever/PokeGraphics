@@ -210,7 +210,7 @@ public class Game implements Runnable {
 	private void Opponentinput() {
 		Random rand = new Random();
 		int number = rand.nextInt(4);
-		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(2);
+		opponent.currentpokemon.currentattack = opponent.currentpokemon.skills.get(1);
 	}
 
 	// METHODS RELATED TO ATTACK
@@ -299,6 +299,7 @@ public class Game implements Runnable {
 				
 			}
 		}
+		applypoison(player.currentpokemon,opponent.currentpokemon);
 		if (player.currentpokemon.health <= 0) {
 			mustswap = true;
 			setState("pokemon");

@@ -32,3 +32,6 @@ Sleep 00.9999 0 0 0.15
 
 #Psyshock
 Psyshock 00.45 10 -4 0
+
+#Hydropump
+Hydropump 00.45 10 -4 0

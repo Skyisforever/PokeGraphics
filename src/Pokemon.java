@@ -133,6 +133,7 @@ public class Pokemon extends Animator {
 				case "Leechseed":
 				case "Thunder":
 				case "Psyshock":
+				case "Hydropump":
 					effect.set(currentattack.name, this);
 					break;
 				default:

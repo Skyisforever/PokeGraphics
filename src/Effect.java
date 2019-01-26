@@ -141,6 +141,26 @@ public class Effect extends Animator {
 			
 			deltas = al.nextFrame(name, frame_counter, this);
 			break;
+	case "Hydropump":
+			
+			if (frame_counter == 0) {
+				if (Game.opponentsattack) {
+					loadImage("hydropumpbackward.png");
+					setPos(450, 35);
+				}
+					
+				else {
+					loadImage("hydropumpforward.png");
+					setPos(140, 200);
+				}
+			}
+
+			dxs = -.7f;
+			dys = -1;
+			dts = -1;
+			
+			deltas = al.nextFrame(name, frame_counter, this);
+			break;
 
 		}
 
