@@ -39,7 +39,9 @@ public class Pokemon extends Animator {
 	}
 
 	public void define() {
-		setImage(name.toLowerCase() + ".png");
+		// add special cases here
+		String filename = name.toLowerCase() + ".png";
+		setImage(filename);
 
 		if (player.name.equals("opponent")) {
 			setPos(450, 35);
@@ -77,6 +79,7 @@ public class Pokemon extends Animator {
 	@Override
 	public void cleanUp() {
 		animate = false;
+		darkenScreen = false;
 		animationType = "";
 		frame_counter = 0;
 	}
@@ -92,11 +95,10 @@ public class Pokemon extends Animator {
 			String append = this_health_low ? "distressed" : "";
 			String filename = name.toLowerCase();
 			filename += append + ".png";
-
+			
 			// add special cases here
-			// eg. if (name.equals("pewdiepie")) { filename = "sub2pewds.png"; }
+			// filename = "...";
 			setImage(filename);
-
 		}
 
 		float[] deltas = { 0.0f, 0.0f, 0.0f };
@@ -113,9 +115,16 @@ public class Pokemon extends Animator {
 				case "Nuzzle":
 				case "Nightslash":
 				case "Pound":
+					switch (currentattack.name) {
+					case "Nightslash":
+						darkenScreen = true;
+						break;
+					default:
+						darkenScreen = false;
+						break;
+					}
 					deltas = al.nextFrame("QuickAttack", frame_counter, this);
 					break;
-
 				case "Icebeam":
 				case "Confusion":
 				case "Leechseed":

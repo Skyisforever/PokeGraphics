@@ -3,9 +3,7 @@ import java.awt.Graphics2D;
 
 public class Effect extends Animator {
 	private Pokemon p;
-	private AnimationLoader al;
 	private boolean imgLoaded = false;
-	public boolean darkenScreen = false;
 	private float dxs, dys, dts;
 
 	public Effect(Pokemon p, AnimationLoader al) {
