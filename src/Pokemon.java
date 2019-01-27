@@ -2,7 +2,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Pokemon extends Animator {
 	String name;
@@ -21,6 +26,7 @@ public class Pokemon extends Animator {
 	private String animationType;
 	public Effect effect = null;
 	private int baseX, baseY;
+	private Image imgSleep;
 
 	public Pokemon(String name, ArrayList<String> type, double health, double attack, double defense, double speed,
 			ArrayList<Attack> skills, ArrayList<Status> statuses, Player player, AnimationLoader al) {
@@ -42,6 +48,12 @@ public class Pokemon extends Animator {
 		// add special cases here
 		String filename = name.toLowerCase() + ".png";
 		setImage(filename);
+
+		try {
+			imgSleep = new ImageIcon(getClass().getResource("zzz.gif")).getImage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (player.name.equals("opponent")) {
 			setPos(450, 35);
@@ -95,7 +107,7 @@ public class Pokemon extends Animator {
 			String append = this_health_low ? "distressed" : "";
 			String filename = name.toLowerCase();
 			filename += append + ".png";
-			
+
 			// add special cases here
 			// filename = "...";
 			setImage(filename);
@@ -185,6 +197,12 @@ public class Pokemon extends Animator {
 		g.drawRect(baseX - 75, baseY + 10, 75, 10);
 		g.setFont(new Font("Courier", Font.BOLD, 13));
 		g.drawString(currenthealth + "/" + health, baseX - 75, baseY + 40);
+
+		for (Status s : statuses) {
+			if (s.name.equals("sleep")) {
+				g.drawImage(imgSleep, baseX + 60, baseY - 20, null);
+			}
+		}
 	}
 
 }
