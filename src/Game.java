@@ -247,8 +247,11 @@ public class Game implements Runnable {
 					sleep(10);
 				}
 				sleep(1000);
-				// draw pokemon faint
-
+				opponent.currentpokemon.opponentfaint();
+				while (opponent.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
 				opponentswap(opponent);
 				// draw new pokemon
 				setState("choices");
@@ -262,6 +265,11 @@ public class Game implements Runnable {
 				mustswap = true;
 				hud.set(player.currentpokemon.name + " has fainted!");
 				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				player.currentpokemon.faint();
+				while (player.currentpokemon.animationPlaying()) {
 					sleep(10);
 				}
 				sleep(1000);
@@ -281,6 +289,11 @@ public class Game implements Runnable {
 					sleep(10);
 				}
 				sleep(1000);
+				player.currentpokemon.faint();
+				while (player.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
 				setState("pokemon");
 				return;
 
@@ -292,7 +305,12 @@ public class Game implements Runnable {
 					sleep(10);
 				}
 				sleep(1000);
+				opponent.currentpokemon.opponentfaint();
 				opponentswap(opponent);
+				while (opponent.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
 				setState("choices");
 				return;
 

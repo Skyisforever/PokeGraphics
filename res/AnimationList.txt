@@ -35,3 +35,9 @@ Psyshock 00.45 10 -4 0
 
 #Hydropump
 Hydropump 00.45 10 -4 0
+
+#faint
+faint 00.50 0 10 2
+
+#opponentfaint
+opponentfaint 00.50 0 -10 -2

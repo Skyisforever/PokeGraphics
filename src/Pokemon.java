@@ -81,8 +81,12 @@ public class Pokemon extends Animator {
 
 	public void faint() {
 		animationType = "faint";
+		animate=true;
 	}
-
+	public void opponentfaint() {
+		animationType = "opponentfaint";
+		animate=true;
+	}
 	public void hit() {
 		animationType = "hit";
 		animate = true;
@@ -119,12 +123,14 @@ public class Pokemon extends Animator {
 			case "attack":
 				switch (currentattack.name) {
 				case "Scratch":
-				case "GyroBall":
+				case "Gyroball":
 				case "Brickbreak":
 				case "Wakeupslap":
 				case "Tackle":
 				case "QuickAttack":
 				case "Electroball":
+				case "Vinewhip":
+				case "Venoshock":
 				case "Nuzzle":
 				case "Nightslash":
 				case "Pound":
@@ -154,7 +160,10 @@ public class Pokemon extends Animator {
 				break;
 
 			case "faint":
-				// faint animation here
+				deltas = al.nextFrame("faint", frame_counter, this);
+				break;
+			case "opponentfaint":
+				deltas = al.nextFrame("faint", frame_counter, this);
 				break;
 			case "hit":
 				deltas = al.nextFrame("hit", frame_counter, this);
