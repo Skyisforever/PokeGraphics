@@ -401,7 +401,7 @@ public class Game implements Runnable {
 		boolean attackSelf = b < 50 && applyconfusion(x);
 		if (attackSelf) {
 			double TrueEffectiveness = 1;
-			for (int i = 0; i < y.type.size(); i++) {
+			for (int i = 0; i < x.type.size(); i++) {
 				TrueEffectiveness *= Effectiveness(x.type.get(i), attack);
 			}
 			double finaldamage = Math.round((attack.basedamage * (x.attack / x.defense)) * TrueEffectiveness);
@@ -529,7 +529,7 @@ public class Game implements Runnable {
 		} else if (attack.status.name.equals("sleep")) {
 			Random rand = new Random();
 			int num = rand.nextInt(100);
-			if (num < 75) {
+			if (num < 70) {
 				y.statuses.add(new Status("sleep", 2));
 				hud.set(y.name + " has fallen asleep!");
 				while (hud.isTyping()) {
@@ -571,7 +571,7 @@ public class Game implements Runnable {
 		} else if (attack.status.name.equals("confuse")) {
 			Random rand = new Random();
 			int num = rand.nextInt(100);
-			if (num < 100) {
+			if (num < 70) {
 				y.statuses.add(new Status("confuse", 5));
 				hud.set(y.name + " has been confused!");
 				while (hud.isTyping()) {
