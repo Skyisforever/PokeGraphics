@@ -44,6 +44,7 @@ public class Room {
 
 		game = new Game(player, opponent, hud);
 		tGame = new Thread(game);
+		Jukebox.playMusic("Battlemusic.wav");
 		tGame.start();
 	}
 
