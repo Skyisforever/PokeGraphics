@@ -38,7 +38,7 @@ public class MouseHandle implements MouseListener {
 		if (Math.abs(x - x1) <= 50 && Math.abs(y - y1) <= 25 && clickable) {
 			hud.clicked = true;
 			hud.setCoord(x2, y2);
-			System.out.printf("X: %d Y: %d\n", x2, y2);
+			//System.out.printf("X: %d Y: %d\n", x2, y2);
 		}
 	}
 

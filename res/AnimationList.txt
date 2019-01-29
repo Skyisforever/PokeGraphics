@@ -40,4 +40,4 @@ Hydropump 00.45 10 -4 0
 faint 00.50 0 10 2
 
 #opponentfaint
-opponentfaint 00.50 0 -10 -2
+opponentfaint 00.75 0 -10 -2

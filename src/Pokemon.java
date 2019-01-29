@@ -81,12 +81,14 @@ public class Pokemon extends Animator {
 
 	public void faint() {
 		animationType = "faint";
-		animate=true;
+		animate = true;
 	}
+
 	public void opponentfaint() {
 		animationType = "opponentfaint";
-		animate=true;
+		animate = true;
 	}
+
 	public void hit() {
 		animationType = "hit";
 		animate = true;
@@ -163,7 +165,7 @@ public class Pokemon extends Animator {
 				deltas = al.nextFrame("faint", frame_counter, this);
 				break;
 			case "opponentfaint":
-				deltas = al.nextFrame("faint", frame_counter, this);
+				deltas = al.nextFrame("opponentfaint", frame_counter, this);
 				break;
 			case "hit":
 				deltas = al.nextFrame("hit", frame_counter, this);

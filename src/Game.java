@@ -240,20 +240,34 @@ public class Game implements Runnable {
 		}
 		if (player.currentpokemon.speed >= opponent.currentpokemon.speed) {
 			Modifycurrenthealth(player.currentpokemon, opponent.currentpokemon, player.currentpokemon.currentattack);
-			if (opponent.currentpokemon.currenthealth <= 0) {
+			if (player.currentpokemon.currenthealth <= 0) {
+				mustswap = true;
+				hud.set(player.currentpokemon.name + " has fainted!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				player.currentpokemon.faint();
+				while (player.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("pokemon");
+				return;
 
+			}
+			if (opponent.currentpokemon.currenthealth <= 0) {
 				hud.set(opponent.currentpokemon.name + " has fainted!");
 				while (hud.isTyping()) {
 					sleep(10);
 				}
 				sleep(1000);
 				opponent.currentpokemon.opponentfaint();
+				opponentswap(opponent);
 				while (opponent.currentpokemon.animationPlaying()) {
 					sleep(10);
 				}
 				sleep(1000);
-				opponentswap(opponent);
-				// draw new pokemon
 				setState("choices");
 				return;
 
@@ -274,6 +288,22 @@ public class Game implements Runnable {
 				}
 				sleep(1000);
 				setState("pokemon");
+				return;
+
+			}
+			if (opponent.currentpokemon.currenthealth <= 0) {
+				hud.set(opponent.currentpokemon.name + " has fainted!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				opponent.currentpokemon.opponentfaint();
+				opponentswap(opponent);
+				while (opponent.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
 				return;
 
 			}
@@ -298,7 +328,39 @@ public class Game implements Runnable {
 				return;
 
 			}
+			if (opponent.currentpokemon.currenthealth <= 0) {
+				hud.set(opponent.currentpokemon.name + " has fainted!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				opponent.currentpokemon.opponentfaint();
+				opponentswap(opponent);
+				while (opponent.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("choices");
+				return;
+
+			}
 			Modifycurrenthealth(player.currentpokemon, opponent.currentpokemon, player.currentpokemon.currentattack);
+			if (player.currentpokemon.currenthealth <= 0) {
+				mustswap = true;
+				hud.set(player.currentpokemon.name + " has fainted!");
+				while (hud.isTyping()) {
+					sleep(10);
+				}
+				sleep(1000);
+				player.currentpokemon.faint();
+				while (player.currentpokemon.animationPlaying()) {
+					sleep(10);
+				}
+				sleep(1000);
+				setState("pokemon");
+				return;
+
+			}
 			if (opponent.currentpokemon.currenthealth <= 0) {
 				hud.set(opponent.currentpokemon.name + " has fainted!");
 				while (hud.isTyping()) {
@@ -334,11 +396,40 @@ public class Game implements Runnable {
 		if (applyfreeze(x)) {
 			return;
 		}
+		Random h = new Random();
+		int b = h.nextInt(100);
+		boolean attackSelf = b < 50 && applyconfusion(x);
+		if (attackSelf) {
+			double TrueEffectiveness = 1;
+			for (int i = 0; i < y.type.size(); i++) {
+				TrueEffectiveness *= Effectiveness(x.type.get(i), attack);
+			}
+			double finaldamage = Math.round((attack.basedamage * (x.attack / x.defense)) * TrueEffectiveness);
+			hud.set(x.name + " is confused and attacked himself!");
+			while (hud.isTyping()) {
+				sleep(10);
+			}
+			sleep(1000);
+			for (int i = 0; x.currenthealth > 0 && i < finaldamage; ++i) {
+				x.currenthealth -= 1;
+				sleep(100);
+			}
+
+			x.hit();
+			while (x.animationPlaying()) {
+				sleep(10);
+			}
+			sleep(1000);
+
+			return;
+			// }
+		}
 		double TrueEffectiveness = 1;
 		for (int i = 0; i < y.type.size(); i++) {
 			TrueEffectiveness *= Effectiveness(y.type.get(i), attack);
 		}
 		double finaldamage = Math.round((attack.basedamage * (x.attack / y.defense)) * TrueEffectiveness);
+
 		if (attack.name.equals("WakeupSlap")) {
 			if (isasleep(y)) {
 				finaldamage = finaldamage * 2;
@@ -400,32 +491,7 @@ public class Game implements Runnable {
 		}
 
 		sleep(2000);
-		Random h = new Random();
-		int b = h.nextInt(100);
-		boolean attackSelf = b < 50 && applyconfusion(x);
-		if (attackSelf) {
-			// self-hit animation
-			x.hit();
-			while (x.animationPlaying()) {
-				sleep(10);
-			}
-			sleep(1000);
 
-			// health-bar animation
-			for (int i = 0; x.currenthealth > 0 && i < finaldamage; ++i) {
-				x.currenthealth -= 1;
-				sleep(100);
-			}
-
-			sleep(250);
-			hud.set(x.name + " is confused and attacked himself!");
-			while (hud.isTyping()) {
-				sleep(10);
-			}
-			sleep(1000);
-			return;
-			// }
-		}
 		if (TrueEffectiveness > 1) {
 
 			hud.set("It's Super Effective!!!");
@@ -505,7 +571,7 @@ public class Game implements Runnable {
 		} else if (attack.status.name.equals("confuse")) {
 			Random rand = new Random();
 			int num = rand.nextInt(100);
-			if (num < 75) {
+			if (num < 100) {
 				y.statuses.add(new Status("confuse", 5));
 				hud.set(y.name + " has been confused!");
 				while (hud.isTyping()) {

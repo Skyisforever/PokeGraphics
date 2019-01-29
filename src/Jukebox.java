@@ -2,20 +2,20 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 public class Jukebox {
-    public static void playMusic(String file) {     
-    	
-        try{
-            AudioInputStream ais = AudioSystem.getAudioInputStream(new File(file));
-            Clip test = AudioSystem.getClip();  
+	public static void playMusic(String file) {
 
-            test.open(ais);
-            test.start();
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(file));
+			Clip test = AudioSystem.getClip();
 
-            while (test.isRunning())
-                Thread.sleep(10);
+			test.open(ais);
+			test.start();
 
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-    }
+			while (test.isRunning())
+				Thread.sleep(10);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
