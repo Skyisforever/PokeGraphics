@@ -18,3 +18,26 @@ Leechseed 00.38  10 -3  0
 
 #Icebeam
 Icebeam 00.33 10 -4 0
+
+#Hit
+hit 00.05 -1  1 0
+hit 05.15  1 -1 0
+hit 15.20 -1  1 0
+
+#Lick
+Lick 00.40 0 -2 0
+
+#Sleep
+Sleep 00.9999 0 0 0.15
+
+#Psyshock
+Psyshock 00.45 10 -4 0
+
+#Hydropump
+Hydropump 00.45 10 -4 0
+
+#faint
+faint 00.50 0 10 2
+
+#opponentfaint
+opponentfaint 00.50 0 -10 -2

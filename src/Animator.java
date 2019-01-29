@@ -12,6 +12,7 @@ public class Animator {
 	public AffineTransform tx;
 	public AnimationLoader al;
 	public boolean animate;
+	public boolean darkenScreen = false;
 	
 	public Animator() {
 		frame_counter = 0;
