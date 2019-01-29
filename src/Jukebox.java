@@ -2,7 +2,8 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 public class Jukebox {
-    public static void playMusic(String file) {        
+    public static void playMusic(String file) {     
+    	
         try{
             AudioInputStream ais = AudioSystem.getAudioInputStream(new File(file));
             Clip test = AudioSystem.getClip();  

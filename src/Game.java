@@ -646,7 +646,7 @@ public class Game implements Runnable {
 						sleep(10);
 					}
 					sleep(2000);
-					one.currenthealth = one.currenthealth * 0.8;
+					one.currenthealth = Math.round(one.currenthealth * 0.75);
 				}
 			}
 		}
@@ -658,7 +658,7 @@ public class Game implements Runnable {
 						sleep(10);
 					}
 					sleep(2000);
-					two.currenthealth = two.currenthealth * 0.8;
+					two.currenthealth = Math.round(two.currenthealth * 0.75);
 				}
 			}
 		}
@@ -693,42 +693,42 @@ public class Game implements Runnable {
 
 	public static double Effectiveness(String type, Attack attack) {
 		if ((attack.type.equals("water") || attack.type.equals("grass")) && type.equals("water")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("steel") || attack.type.equals("fire") || attack.type.equals("water")
 				|| attack.type.equals("ice")) && type.equals("water")) {
-			return .5;
+			return .75;
 		} else if (attack.type.equals("fighting") && type.equals("normal")) {
-			return 2;
+			return 1.5;
 		} else if (attack.type.equals("ghost") && type.equals("normal")) {
 			return 0;
 		} else if (attack.type.equals("ground") && type.equals("electric")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("flying") || attack.type.equals("steel") || attack.type.equals("electric"))
 				&& type.equals("electric")) {
-			return .5;
+			return .75;
 		} else if (attack.type.equals("psychic") && type.equals("dark")) {
 			return 0;
 		} else if ((attack.type.equals("fighting") || attack.type.equals("bug") || attack.type.equals("fairy"))
 				&& type.equals("dark")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("ghost") || attack.type.equals("dark")) && type.equals("dark")) {
-			return .5;
+			return .75;
 		} else if ((attack.type.equals("ground") || attack.type.equals("water") || attack.type.equals("grass")
 				|| attack.type.equals("electric")) && type.equals("grass")) {
-			return .5;
+			return .75;
 		} else if ((attack.type.equals("flying") || attack.type.equals("poison") || attack.type.equals("bug")
 				|| attack.type.equals("fire") || attack.type.equals("ice")) && type.equals("grass")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("ground") || attack.type.equals("psychic")) && type.equals("poison")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("fighting") || attack.type.equals("poison") || attack.type.equals("bug")
 				|| attack.type.equals("grass") || attack.type.equals("fairy")) && type.equals("poison")) {
-			return .5;
+			return .75;
 		} else if ((attack.type.equals("poison") || attack.type.equals("ghost")) && type.equals("fairy")) {
-			return 2;
+			return 1.5;
 		} else if ((attack.type.equals("bug") || attack.type.equals("fighting") || attack.type.equals("dark"))
 				&& type.equals("fairy")) {
-			return .5;
+			return .75;
 		} else if (attack.type.equals("dragon") && type.equals("fairy")) {
 			return 0;
 		}
